@@ -1,11 +1,12 @@
 package com.luxevision.backend.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
 
 @Entity
 @Data
-public class Specialties {
+public class Specialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -14,5 +15,6 @@ public class Specialties {
     private String specialtyName;
 
     @OneToMany(mappedBy = "specialty")
+    @JsonIgnore
     private List<StudioSpecialty> studioSpecialties;
 }

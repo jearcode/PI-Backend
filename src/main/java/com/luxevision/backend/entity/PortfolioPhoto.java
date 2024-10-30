@@ -1,4 +1,5 @@
 package com.luxevision.backend.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,5 +15,6 @@ public class PortfolioPhoto {
 
     @ManyToOne
     @JoinColumn(name = "studio_id", nullable = false)
+    @JsonIgnore
     private Studio studio;
 }

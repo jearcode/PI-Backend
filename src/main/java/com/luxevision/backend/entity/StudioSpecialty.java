@@ -1,4 +1,5 @@
 package com.luxevision.backend.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,9 +12,10 @@ public class StudioSpecialty {
 
     @ManyToOne
     @JoinColumn(name = "studio_id", nullable = false)
+    @JsonIgnore
     private Studio studio;
 
     @ManyToOne
     @JoinColumn(name = "specialty_id", nullable = false)
-    private Specialties specialty;
+    private Specialty specialty;
 }

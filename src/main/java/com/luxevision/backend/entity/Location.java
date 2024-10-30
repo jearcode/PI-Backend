@@ -1,4 +1,5 @@
 package com.luxevision.backend.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,5 +23,6 @@ public class Location {
     private String address;
 
     @OneToOne(mappedBy = "location")
+    @JsonIgnore
     private Studio studio;
 }
