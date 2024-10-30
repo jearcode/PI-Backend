@@ -37,4 +37,8 @@ public class StudioService {
     public List<Studio> findAllStudios() {
         return studioRepository.findAll();
     }
+
+    public Boolean existsStudioByStudioName (String studioName) {
+        return studioRepository.existsStudioByStudioName(studioName);
+    }
 }

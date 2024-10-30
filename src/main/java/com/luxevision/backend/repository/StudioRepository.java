@@ -10,4 +10,7 @@ public interface StudioRepository extends JpaRepository<Studio, Integer> {
 
     @Query("SELECT s FROM Studio s ORDER BY FUNCTION('RAND')")
     List<Studio> findRandomStudios(org.springframework.data.domain.Pageable pageable);
+
+    Boolean existsStudioByStudioName(String studioName);
+
 }

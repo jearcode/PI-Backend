@@ -1,5 +1,6 @@
 package com.luxevision.backend.controller;
 import com.luxevision.backend.entity.*;
+import com.luxevision.backend.exception.StudioNameAlreadyRegisteredException;
 import com.luxevision.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,12 @@ public class StudioController {
     @PostMapping
     public ResponseEntity<?> saveStudio (@RequestPart("studio") Studio studio,
                                          @RequestPart("profileImage")MultipartFile profileImage,
-                                         @RequestPart("portfolioImages") List<MultipartFile> portfolioImages) {
+                                         @RequestPart("portfolioImages") List<MultipartFile> portfolioImages)
+            throws StudioNameAlreadyRegisteredException {
+
+        if(studioService.existsStudioByStudioName(studio.getStudioName()) ) {
+            throw new StudioNameAlreadyRegisteredException();
+        }
 
         Location location = new Location();
         location.setCity(studio.getLocation().getCity());
