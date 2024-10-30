@@ -1,11 +1,14 @@
 package com.luxevision.backend.entity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = "portfolioPhotos")
 public class Studio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

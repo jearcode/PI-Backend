@@ -2,9 +2,11 @@ package com.luxevision.backend.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = "studio")
 public class PortfolioPhoto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
