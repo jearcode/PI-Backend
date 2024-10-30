@@ -21,10 +21,10 @@ INSERT INTO location (id, city, state, country, address) VALUES (17, 'Detroit', 
 INSERT INTO location (id, city, state, country, address) VALUES (18, 'Nashville', 'TN', 'USA', '1212 Music Row, Nashville, TN 37201');
 
 -- 2. Insert data into the Specialties table
-INSERT INTO specialties (id, specialty_name) VALUES (1, 'Wedding Photography');
-INSERT INTO specialties (id, specialty_name) VALUES (2, 'Product Photography');
-INSERT INTO specialties (id, specialty_name) VALUES (3, 'Portrait Photography');
-INSERT INTO specialties (id, specialty_name) VALUES (4, 'Event Photography');
+INSERT INTO specialty (id, specialty_name) VALUES (1, 'Wedding Photography');
+INSERT INTO specialty (id, specialty_name) VALUES (2, 'Product Photography');
+INSERT INTO specialty (id, specialty_name) VALUES (3, 'Portrait Photography');
+INSERT INTO specialty (id, specialty_name) VALUES (4, 'Event Photography');
 
 -- 3. Insert data into the Studio table
 INSERT INTO studio (id, studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES (1, 'Luxe Wedding Studio', 'info@luxewedding.com', '123-456-7890', 'Specializing in wedding photography.', NOW(), 5, 'https://fake-s3-bucket.s3.amazonaws.com/profile1.jpg', 1);
