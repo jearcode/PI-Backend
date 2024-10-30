@@ -148,7 +148,59 @@ Respuesta Exitosa (201 Created):
   ]
 }
 ~~~
+**3. Eliminar un Estudio**
 
+URL: `/studios/{id}`
+
+Método: DELETE
+
+- **Descripción**: Elimina un estudio específico dado su ID.
+  - **Parámetros**:
+    - `id` (path): El ID del estudio a eliminar.
+  - **Respuesta**:
+    - **204 No Content**: Indica que el estudio se eliminó exitosamente.
+    - **404 Not Found**: Si el estudio no existe.
+
+**4. Listar todos los Estudios**
+
+  - **URL**: `/studios`
+  - **Método**: `GET`
+  - **Descripción**: Lista todos los estudios.
+  - **Respuesta**:
+    - **200 OK**: Devuelve una lista de todos los estudios.
+
+Respuesta
+Código 200 OK:
+
+~~~
+[
+  {
+    "id": 1,
+    "studioName": "Luxe Wedding Studio",
+    "email": "info@luxewedding.com",
+    "phone": "123-456-7890",
+    "description": "Specializing in wedding photography.",
+    "signup": "2024-10-29T23:38:06.778813",
+    "yearsOfExperience": 5,
+    "profileImage": "https://fake-s3-bucket.s3.amazonaws.com/profile1.jpg",
+    "location": {
+        "city": "New York",
+        "state": "NY",
+        "country": "USA",
+        "address": "123 Main St, New York, NY 10001"
+    },
+    "photographers": [
+        {"firstName": "Alice", "lastName": "Smith"}
+    ],
+    "studioSpecialties": [
+        {"specialty": {"specialtyName": "Wedding Photography"}}
+    ],
+    "portfolioPhotos": [
+        {"image": "https://fake-s3-bucket.s3.amazonaws.com/Fake.ico"}
+    ]
+  }
+]
+~~~
 
 
 
