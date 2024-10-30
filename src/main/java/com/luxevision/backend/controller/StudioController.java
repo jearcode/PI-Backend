@@ -34,6 +34,20 @@ public class StudioController {
     @Autowired
     private S3Service s3Service;
 
+    @GetMapping
+    public List<Studio> getAllStudios() {
+        return studioService.getAllStudios();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStudio(@PathVariable Integer id) {
+        try {
+            studioService.deleteStudioById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 
     @GetMapping("/random")
     public List<Studio> getRandomStudios() {

@@ -1,6 +1,9 @@
 package com.luxevision.backend.service;
 import com.luxevision.backend.entity.Studio;
+import com.luxevision.backend.repository.PhotographerRepository;
 import com.luxevision.backend.repository.StudioRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,10 +15,24 @@ import java.util.Optional;
 public class StudioService {
 
     @Autowired
+    private PhotographerRepository photographerRepository;
+    @Autowired
     private StudioRepository studioRepository;
 
     public List<Studio> getRandomStudios() {
         return studioRepository.findRandomStudios(PageRequest.of(0, 10));
+    }
+
+    public List<Studio> getAllStudios() {
+        return studioRepository.findAll();
+    }
+    @Transactional
+    public void deleteStudioById(Integer id) {
+        if (!studioRepository.existsById(id)) {
+            throw new EntityNotFoundException("El Studio con " + id + " no fue encontrado.");
+        }
+        photographerRepository.deleteByStudioId(id);
+        studioRepository.deleteById(id);
     }
 
     public Studio saveStudio (Studio studio) {
@@ -28,10 +45,6 @@ public class StudioService {
 
     public Studio updateStudio (Studio studio) {
         return studioRepository.save(studio);
-    }
-
-    public void deleteStudioById (Integer id) {
-        studioRepository.deleteById(id);
     }
 
     public List<Studio> findAllStudios() {

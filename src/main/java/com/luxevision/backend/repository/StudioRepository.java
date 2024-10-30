@@ -13,4 +13,6 @@ public interface StudioRepository extends JpaRepository<Studio, Integer> {
 
     Boolean existsStudioByStudioName(String studioName);
 
+
+
 }

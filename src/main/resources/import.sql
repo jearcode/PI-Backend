@@ -57,8 +57,8 @@ INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://fake-s3-bucket.s
 INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://fake-s3-bucket.s3.amazonaws.com/portrait1.jpg', 3);
 
 -- 6. Insert data into the StudioSpecialty table
-INSERT INTO studio_specialty (id, studio_id, specialty_id) VALUES (1, 1, 1);
-INSERT INTO studio_specialty (id, studio_id, specialty_id) VALUES (2, 2, 2);
-INSERT INTO studio_specialty (id, studio_id, specialty_id) VALUES (3, 3, 3);
-INSERT INTO studio_specialty (id, studio_id, specialty_id) VALUES (4, 1, 4);
-INSERT INTO studio_specialty (id, studio_id, specialty_id) VALUES (5, 3, 4);
+INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (1, 1);
+INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (2, 2);
+INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (3, 3);
+INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (1, 4);
+INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (3, 4);
