@@ -30,9 +30,15 @@ public class S3Service {
         this.bucketName = bucketName;
     }
 
-    public String uploadFile(MultipartFile file, String studioName) throws IOException {
+    public String uploadFile(MultipartFile file, String studioName, String portfolioName) throws IOException {
 
-        String key = "studios/" + studioName + "/" + file.getOriginalFilename();
+        String key = "studios/" + studioName + "/";
+
+        if(!portfolioName.isEmpty()) {
+            key += portfolioName;
+        } else {
+            key += "profile-image";
+        }
 
         String contentType = file.getContentType();
 

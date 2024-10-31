@@ -88,17 +88,19 @@ public class StudioController {
         }
 
         try {
-            String profilePhotoUrl = s3Service.uploadFile(profileImage, studio.getStudioName());
+            String profilePhotoUrl = s3Service.uploadFile(profileImage, studio.getStudioName(), "");
             studioSaved.setProfileImage(profilePhotoUrl);
 
             List<PortfolioPhoto> portfolioPhotos = new ArrayList<>();
 
+            int index = 1;
             for (MultipartFile portfolioImage : portfolioImages) {
                 PortfolioPhoto portfolioPhoto = new PortfolioPhoto();
-                String photoUrl = s3Service.uploadFile(portfolioImage, studio.getStudioName());
+                String photoUrl = s3Service.uploadFile(portfolioImage, studio.getStudioName(), "photography-" + index);
                 portfolioPhoto.setImage(photoUrl);
                 portfolioPhoto.setStudio(studioSaved);
                 portfolioPhotos.add(portfolioPhotoService.savePortfolioPhoto(portfolioPhoto));
+                index++;
             }
 
             studioSaved.setPortfolioPhotos(portfolioPhotos);
