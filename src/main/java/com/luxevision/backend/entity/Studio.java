@@ -42,7 +42,7 @@ public class Studio {
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Photographer> photographers;
 
-    @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
     private List<PortfolioPhoto> portfolioPhotos;
 
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL, orphanRemoval = true)

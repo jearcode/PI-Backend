@@ -17,7 +17,7 @@ public class Photographer {
     private String lastName;
 
     @ManyToOne
-    @JoinColumn(name = "studio_id", nullable = false)
+    @JoinColumn(name = "studio_id")
     @JsonIgnore
     private Studio studio;
 }

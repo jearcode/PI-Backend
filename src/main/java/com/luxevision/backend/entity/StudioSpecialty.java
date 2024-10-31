@@ -11,11 +11,11 @@ public class StudioSpecialty {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "studio_id", nullable = false)
+    @JoinColumn(name = "studio_id")
     @JsonIgnore
     private Studio studio;
 
     @ManyToOne
-    @JoinColumn(name = "specialty_id", nullable = false)
+    @JoinColumn(name = "specialty_id")
     private Specialty specialty;
 }
