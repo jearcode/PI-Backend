@@ -7,14 +7,16 @@ Este es el repositorio backend del proyecto Luxe Vision. Proporciona endpoints p
 - [Endpoints](#endpoints)
 ---
 
-##Documentación de API
+## Documentación de API
 La API cuenta con varios endpoints, detallados a continuación, que permiten la gestión de estudios de fotografía.
-
+~~~
+URL API: http://54.234.87.12:8080
+~~~
 ## Endpoints
 
 **1. Obtener Estudios Aleatorios**
 
-URL: /studios/random
+URL: http://54.234.87.12:8080/studios/random
 
 Método: GET
 
@@ -24,7 +26,7 @@ Respuesta Exitosa (200 OK): Devuelve una lista de estudios de fotografía.
 
 Ejemplo de Solicitud
 ~~~
-GET http://localhost:8080/studios/random
+URL: http://54.234.87.12:8080/studios/random
 ~~~
 
 Respuesta
@@ -62,9 +64,9 @@ Código 200 OK:
 
 
 **2. Crear un Estudio**
-
-URL: /studios
-
+~~~
+URL: http://54.234.87.12:8080/studios
+~~~
 Método: POST
 
 Descripción: Crea un nuevo estudio con información de perfil, fotógrafos y fotos de portafolio.
@@ -86,7 +88,7 @@ Configura una nueva solicitud en Postman:
 
 Método: POST
 
-URL: http://localhost:8080/studios
+URL: http://54.234.87.12:8080/studios
 
 En el apartado de Body, selecciona form-data y agrega los siguientes campos:
 
