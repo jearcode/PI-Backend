@@ -2,6 +2,7 @@ package com.luxevision.backend.controller;
 
 import com.luxevision.backend.configuration.JwtUtil;
 import com.luxevision.backend.dto.LoginRequest;
+import com.luxevision.backend.dto.UserResponse;
 import com.luxevision.backend.entity.User;
 import com.luxevision.backend.entity.UserRole;
 import com.luxevision.backend.service.UserService;
@@ -32,11 +33,22 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already registered.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setUserRole(UserRole.ROLE_USER); // Rol de usuario por defecto
+        user.setUserRole(UserRole.ROLE_USER);
         userService.saveUser(user);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
+        // Genera el token para el nuevo usuario
+        String token = jwtUtil.generateToken(user);
+
+        // Crea y retorna el DTO de respuesta
+        UserResponse response = new UserResponse();
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        response.setEmail(user.getEmail());
+        response.setToken(token);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
@@ -48,7 +60,7 @@ public class UserController {
             return ResponseEntity.ok(Collections.singletonMap("token", token));
         }
         System.out.println("Credenciales no válidas.");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales Invalidas.");
     }
 
 
