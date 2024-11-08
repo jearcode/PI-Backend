@@ -1,5 +1,7 @@
 package com.luxevision.backend.service;
 
+import com.luxevision.backend.entity.Specialty;
+import com.luxevision.backend.entity.Studio;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,8 +9,7 @@ import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 
@@ -51,6 +52,62 @@ public class S3Service {
                 software.amazon.awssdk.core.sync.RequestBody.fromBytes(file.getBytes()));
 
         return "https://" + bucketName + ".s3.amazonaws.com/" + key;
+    }
+
+    public String uploadImage(MultipartFile file, String categoryName) throws IOException {
+
+        String key = "specialties/" + categoryName + "/profile-image";
+
+        String contentType = file.getContentType();
+
+        s3Client.putObject(PutObjectRequest.builder()
+                        .bucket(bucketName)
+                        .key(key)
+                        .acl(ObjectCannedACL.PUBLIC_READ)
+                        .contentType(contentType)
+                        .build(),
+                software.amazon.awssdk.core.sync.RequestBody.fromBytes(file.getBytes()));
+
+        return "https://" + bucketName + ".s3.amazonaws.com/" + key;
+    }
+
+    public void deleteObject(Specialty specialty, Studio studio) {
+
+        String key;
+        if (specialty != null) {
+            key = "specialties/" + specialty.getSpecialtyName() + "/";
+        } else {
+            key = "studios/" + studio.getStudioName() + "/";
+        }
+
+        ListObjectsV2Request listObjectsRequest = ListObjectsV2Request.builder()
+                .bucket(bucketName)
+                .prefix(key)
+                .build();
+
+        try {
+            ListObjectsV2Response listObjectsResponse = s3Client.listObjectsV2(listObjectsRequest);
+
+            if (listObjectsResponse.contents().isEmpty()) {
+                System.out.println("No se encontraron objetos con el prefijo especificado.");
+                return;
+            }
+
+            listObjectsResponse.contents().forEach(s3Object -> {
+                try {
+                    s3Client.deleteObject(DeleteObjectRequest.builder()
+                            .bucket(bucketName)
+                            .key(s3Object.key())
+                            .build());
+                    System.out.println("Eliminado: " + s3Object.key());
+                } catch (S3Exception e) {
+                    System.err.println("Error al eliminar el objeto: " + s3Object.key() + " - " + e.getMessage());
+                }
+            });
+
+        } catch (S3Exception e) {
+            System.err.println("Error al listar objetos: " + e.getMessage());
+        }
     }
 
 }

@@ -14,6 +14,10 @@ public class Specialty {
     @Column(name = "specialty_name", length = 50)
     private String specialtyName;
 
+    private String description;
+
+    private String image;
+
     @OneToMany(mappedBy = "specialty")
     @JsonIgnore
     private List<StudioSpecialty> studioSpecialties;

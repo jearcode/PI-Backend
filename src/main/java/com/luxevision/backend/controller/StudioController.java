@@ -42,7 +42,14 @@ public class StudioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStudio(@PathVariable Integer id) {
+
+        Optional<Studio> studioFromDB = studioService.findStudioById(id);
+        if (!studioFromDB.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
         try {
+            s3Service.deleteObject(null, studioService.findStudioById(id).get());
             studioService.deleteStudioById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {

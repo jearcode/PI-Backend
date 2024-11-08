@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 
         ApiError apiError = new ApiError();
         apiError.setTimestamp(LocalDateTime.now());
-        apiError.setError(e.getMessage());
+        apiError.setError(e.getLocalizedMessage());
         apiError.setMessage("Internal Server Error");
         apiError.setMethod(request.getMethod());
 
