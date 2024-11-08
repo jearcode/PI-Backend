@@ -1,4 +1,4 @@
-package com.luxevision.backend.configuration;
+package com.luxevision.backend.service.auth;
 
 import com.luxevision.backend.entity.User;
 import io.jsonwebtoken.JwtException;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
+public class JwtService {
 
     @Value("${jwt.expiration_in_minutes}")
     private int expirationInMinutes;

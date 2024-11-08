@@ -1,4 +1,4 @@
-package com.luxevision.backend.configuration;
+package com.luxevision.backend.configuration.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

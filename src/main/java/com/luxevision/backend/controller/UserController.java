@@ -1,6 +1,6 @@
 package com.luxevision.backend.controller;
 
-import com.luxevision.backend.configuration.JwtUtil;
+import com.luxevision.backend.service.auth.JwtService;
 import com.luxevision.backend.dto.ApiError;
 import com.luxevision.backend.dto.LoginRequest;
 import com.luxevision.backend.dto.UserResponse;
@@ -27,7 +27,7 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private JwtUtil jwtUtil;
+    private JwtService jwtService;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
@@ -39,7 +39,7 @@ public class UserController {
         userService.saveUser(user);
 
         // Genera el token para el nuevo usuario
-        String token = jwtUtil.generateToken(user);
+        String token = jwtService.generateToken(user);
 
         // Crea y retorna el DTO de respuesta
         UserResponse response = new UserResponse();
@@ -71,7 +71,7 @@ public class UserController {
             apiError.setMethod("POST");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(apiError);
         }
-        String token = jwtUtil.generateToken(user);
+        String token = jwtService.generateToken(user);
         return ResponseEntity.ok(Collections.singletonMap("token", token));
     }
 }
