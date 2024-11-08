@@ -48,7 +48,7 @@ public class SpecialtyController {
     }
 
     @PutMapping
-    public ResponseEntity<Specialty> updateSpecialtyById (@RequestBody Specialty specialty) {
+    public ResponseEntity<Specialty> updateSpecialty (@RequestBody Specialty specialty) {
 
         Optional<Specialty> specialtyFromDB = specialtyService.findSpecialtyById(specialty.getId());
 
