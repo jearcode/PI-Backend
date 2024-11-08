@@ -5,25 +5,29 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Component
+@Service
 public class JwtService {
 
-    @Value("${jwt.expiration_in_minutes}")
-    private int expirationInMinutes;
+    @Value("${security.jwt.expiration-in-minutes}")
+    private Long EXPIRATION_IN_MINUTES;
     @Value("${jwt.secret}")
     private String secretKey;
 
     public String generateToken(User user) {
+
+        Date issuedAt = new Date(System.currentTimeMillis());
+        Date expiration = new Date( (EXPIRATION_IN_MINUTES * 60 * 1000) + issuedAt.getTime() );
+
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim("firstName", user.getFirstName())
                 .claim("lastName", user.getLastName())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationInMinutes))
+                .setIssuedAt(issuedAt)
+                .setExpiration(expiration)
                 .signWith(SignatureAlgorithm.HS512, secretKey.getBytes())
                 .compact();
     }
