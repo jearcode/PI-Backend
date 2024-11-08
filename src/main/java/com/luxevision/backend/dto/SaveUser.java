@@ -3,9 +3,12 @@ package com.luxevision.backend.dto;
 import lombok.Data;
 
 @Data
-public class UserResponse {
+public class SaveUser {
+
     private String firstName;
     private String lastName;
     private String email;
-    private String token;
+    private String password;
+    private String repeatedPassword;
+
 }

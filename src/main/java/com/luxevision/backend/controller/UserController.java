@@ -1,9 +1,12 @@
 package com.luxevision.backend.controller;
 
+import com.luxevision.backend.dto.SaveUser;
+import com.luxevision.backend.dto.auth.LoginRequest;
+import com.luxevision.backend.dto.auth.LoginResponse;
+import com.luxevision.backend.exception.InvalidPasswordException;
 import com.luxevision.backend.service.auth.JwtService;
 import com.luxevision.backend.dto.ApiError;
-import com.luxevision.backend.dto.LoginRequest;
-import com.luxevision.backend.dto.UserResponse;
+import com.luxevision.backend.dto.RegisteredUser;
 import com.luxevision.backend.entity.User;
 import com.luxevision.backend.entity.UserRole;
 import com.luxevision.backend.service.UserService;
@@ -14,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 
 @RestController
 @RequestMapping("/users")
@@ -30,25 +32,37 @@ public class UserController {
     private JwtService jwtService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        if (userService.isEmailTaken(user.getEmail())) {
+    public ResponseEntity<?> registerUser(@RequestBody SaveUser saveUser) {
+
+        if (userService.isEmailTaken(saveUser.getEmail())) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already registered.");
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (!saveUser.getPassword().equals(saveUser.getRepeatedPassword())) {
+            throw new InvalidPasswordException("Passwords do not match.");
+        }
+
+        User user = new User();
+        user.setFirstName(saveUser.getFirstName());
+        user.setLastName(saveUser.getLastName());
+        user.setEmail(saveUser.getEmail());
+        user.setPassword(passwordEncoder.encode(saveUser.getPassword()));
         user.setUserRole(UserRole.ROLE_USER);
-        userService.saveUser(user);
 
-        // Genera el token para el nuevo usuario
-        String token = jwtService.generateToken(user);
 
-        // Crea y retorna el DTO de respuesta
-        UserResponse response = new UserResponse();
-        response.setFirstName(user.getFirstName());
-        response.setLastName(user.getLastName());
-        response.setEmail(user.getEmail());
-        response.setToken(token);
+        User userSaved = userService.saveUser(user);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        RegisteredUser userDTO = new RegisteredUser();
+        userDTO.setId(userSaved.getId());
+        userDTO.setFirstName(saveUser.getFirstName());
+        userDTO.setLastName(saveUser.getLastName());
+        userDTO.setEmail(userSaved.getEmail());
+
+        String jwt = jwtService.generateToken(userSaved);
+        userDTO.setJwt(jwt);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+
     }
 
 
@@ -72,6 +86,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(apiError);
         }
         String token = jwtService.generateToken(user);
-        return ResponseEntity.ok(Collections.singletonMap("token", token));
+        LoginResponse logResp = new LoginResponse();
+        logResp.setJwt(token);
+        return ResponseEntity.ok(logResp);
     }
 }

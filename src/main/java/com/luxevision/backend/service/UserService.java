@@ -15,8 +15,9 @@ import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
-           @Autowired
-        private UserRepository userRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -30,21 +31,22 @@ public class UserService implements UserDetailsService {
                 Collections.singletonList(new SimpleGrantedAuthority(user.getUserRole().name()))
         );
     }
-        public boolean isEmailTaken(String email) {
-            return userRepository.existsByEmail(email);
-        }
 
-        public User saveUser(User user) {
-            return userRepository.save(user);
-        }
+    public boolean isEmailTaken(String email) {
+        return userRepository.existsByEmail(email);
+    }
 
-        public User findByEmail(String email) {
-            return userRepository.findByEmail(email);
-        }
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 
-        public List<User> getAllUsers() {
-            return userRepository.findAll();
-        }
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
     public UserDetails loadUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
