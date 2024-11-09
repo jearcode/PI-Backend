@@ -37,4 +37,14 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<?> handlerObjectNotFoundException(ObjectNotFoundException e, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setError("Object not found");
+        apiError.setMessage(e.getMessage());
+        apiError.setMethod(request.getMethod());
+        return ResponseEntity.status(404).body(apiError);
+    }
+
 }

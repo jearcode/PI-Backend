@@ -1,5 +1,6 @@
 package com.luxevision.backend.controller;
 import com.luxevision.backend.entity.*;
+import com.luxevision.backend.exception.ObjectNotFoundException;
 import com.luxevision.backend.exception.StudioNameAlreadyRegisteredException;
 import com.luxevision.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,13 +47,12 @@ public class StudioController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStudio(@PathVariable Integer id) {
 
-        Optional<Studio> studioFromDB = studioService.findStudioById(id);
-        if (!studioFromDB.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
+        Studio studioFromDB = studioService.findStudioById(id).orElseThrow(
+                () -> new ObjectNotFoundException("Studio with id " + id + " not found")
+        );
 
         try {
-            s3Service.deleteObject(null, studioService.findStudioById(id).get());
+            s3Service.deleteObject(null, studioFromDB);
             studioService.deleteStudioById(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         } catch (Exception e) {
@@ -131,12 +131,81 @@ public class StudioController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Studio> findStudioById (@PathVariable Integer id) {
-        Optional<Studio> studioFromDB = studioService.findStudioById(id);
 
-        if(!studioFromDB.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        Studio studioFromDB = studioService.findStudioById(id).orElseThrow(
+                () -> new ObjectNotFoundException("Studio with id " + id + " not found")
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(studioFromDB);
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateStudio (@RequestPart("studio") Studio studio,
+                                         @RequestPart("profileImage")MultipartFile profileImage,
+                                         @RequestPart("portfolioImages") List<MultipartFile> portfolioImages)
+            throws StudioNameAlreadyRegisteredException {
+
+        Studio studioToUpdate = studioService.findStudioById(studio.getId()).orElseThrow(
+                () -> new ObjectNotFoundException("Studio not found")
+        );
+
+        if (!studioToUpdate.getStudioName().equals(studio.getStudioName()) &&
+                studioService.existsStudioByStudioName(studio.getStudioName())) {
+            throw new StudioNameAlreadyRegisteredException();
         }
-        return ResponseEntity.status(HttpStatus.OK).body(studioFromDB.get());
+
+        Location location = new Location();
+        location.setCity(studio.getLocation().getCity());
+        location.setState(studio.getLocation().getState());
+        location.setCountry(studio.getLocation().getCountry());
+        location.setAddress(studio.getLocation().getAddress());
+        Location locationSaved = locationService.saveLocation(location);
+
+        Studio studioToSave = studio;
+        studioToSave.setLocation(locationSaved);
+
+        Studio studioSaved = studioService.saveStudio(studioToSave);
+
+        for (Photographer photographer : studio.getPhotographers()) {
+            photographer.setStudio(studioSaved);
+            photographerService.savePhotographer(photographer);
+        }
+
+        for (StudioSpecialty studioSpecialty : studio.getStudioSpecialties()) {
+            studioSpecialty.setStudio(studioSaved);
+            studioSpecialtyService.saveStudioSpecialty(studioSpecialty);
+        }
+
+        for (StudioFeature studioFeature : studio.getStudioFeatures()) {
+            studioFeature.setStudio(studioSaved);
+            studioFeatureService.saveStudioFeature(studioFeature);
+        }
+
+        try {
+            String profilePhotoUrl = s3Service.uploadFile(profileImage, studio.getStudioName(), "");
+            studioSaved.setProfileImage(profilePhotoUrl);
+
+            List<PortfolioPhoto> portfolioPhotos = new ArrayList<>();
+
+            int index = 1;
+            for (MultipartFile portfolioImage : portfolioImages) {
+                PortfolioPhoto portfolioPhoto = new PortfolioPhoto();
+                String photoUrl = s3Service.uploadFile(portfolioImage, studio.getStudioName(), "photography-" + index);
+                portfolioPhoto.setImage(photoUrl);
+                portfolioPhoto.setStudio(studioSaved);
+                portfolioPhotos.add(portfolioPhotoService.savePortfolioPhoto(portfolioPhoto));
+                index++;
+            }
+
+            studioSaved.setPortfolioPhotos(portfolioPhotos);
+            studioService.updateStudio(studioSaved);
+
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(studioSaved);
+
     }
 
 }
