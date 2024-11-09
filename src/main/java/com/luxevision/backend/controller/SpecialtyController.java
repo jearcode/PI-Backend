@@ -48,7 +48,8 @@ public class SpecialtyController {
     }
 
     @PutMapping
-    public ResponseEntity<Specialty> updateSpecialty (@RequestBody Specialty specialty) {
+    public ResponseEntity<Specialty> updateSpecialty (@RequestPart Specialty specialty,
+                                                      @RequestPart MultipartFile image) throws IOException {
 
         Optional<Specialty> specialtyFromDB = specialtyService.findSpecialtyById(specialty.getId());
 
@@ -56,6 +57,8 @@ public class SpecialtyController {
             return ResponseEntity.notFound().build();
         }
 
+        String imageURL = s3Service.uploadImage(image, specialty.getSpecialtyName());
+        specialty.setImage(imageURL);
         return ResponseEntity.ok(specialtyService.updateSpecialty(specialty));
     }
 
