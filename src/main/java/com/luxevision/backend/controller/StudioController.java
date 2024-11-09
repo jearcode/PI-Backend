@@ -35,6 +35,9 @@ public class StudioController {
     @Autowired
     private S3Service s3Service;
 
+    @Autowired
+    private StudioFeatureService studioFeatureService;
+
     @GetMapping
     public List<Studio> getAllStudios() {
         return studioService.getAllStudios();
@@ -92,6 +95,11 @@ public class StudioController {
         for (StudioSpecialty studioSpecialty : studio.getStudioSpecialties()) {
             studioSpecialty.setStudio(studioSaved);
             studioSpecialtyService.saveStudioSpecialty(studioSpecialty);
+        }
+
+        for (StudioFeature studioFeature : studio.getStudioFeatures()) {
+            studioFeature.setStudio(studioSaved);
+            studioFeatureService.saveStudioFeature(studioFeature);
         }
 
         try {
