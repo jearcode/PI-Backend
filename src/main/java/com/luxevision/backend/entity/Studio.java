@@ -48,5 +48,8 @@ public class Studio {
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudioSpecialty> studioSpecialties;
 
+    @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
+    private List<StudioFeature> studioFeatures;
+
 }
 
