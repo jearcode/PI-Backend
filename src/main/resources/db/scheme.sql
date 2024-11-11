@@ -81,6 +81,28 @@ CREATE TABLE IF NOT EXISTS Studio_Features (
     CONSTRAINT fk_studio_feature_feature FOREIGN KEY (feature_Id) REFERENCES Features(Id)
 );
      
+/* CONFIG */
+CREATE TABLE IF NOT EXISTS User_Roles (
+	Id		INT			AUTO_INCREMENT,
+    role	VARCHAR(50)	NOT NULL, 
+    
+    CONSTRAINT pk_user_role PRIMARY KEY (Id)
+);
+
+CREATE TABLE IF NOT EXISTS Users (
+	Id				INT 			AUTO_INCREMENT,
+    first_name 		VARCHAR(50) 	NOT NULL,
+    last_name		VARCHAR(50) 	NOT NULL,
+    password		VARCHAR(255) 	NOT NULL,
+    salt			VARCHAR(255)	NULL,
+    email			VARCHAR(150) 	NOT NULL,
+    signup			DATETIME		NOT NULL,
+    user_role_id	INT				NOT NULL,
+    
+    CONSTRAINT pk_user PRIMARY KEY (Id),
+    CONSTRAINT fk_user_role FOREIGN KEY (user_role_Id) REFERENCES User_Roles(Id)
+);
+     
      
      
      
