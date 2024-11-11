@@ -1,6 +1,5 @@
 package com.luxevision.backend.service;
 
-import com.luxevision.backend.entity.CustomUserDetails;
 import com.luxevision.backend.entity.User;
 import com.luxevision.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority(user.getUserRole().name()))
+                Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()))
         );
     }
 
@@ -50,7 +49,7 @@ public class UserService implements UserDetailsService {
 
     public UserDetails loadUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
-        return new CustomUserDetails(user);
+        return user;
     }
 
 }

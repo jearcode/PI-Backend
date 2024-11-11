@@ -1,13 +1,14 @@
 package com.luxevision.backend.service.auth;
 
-import com.luxevision.backend.entity.User;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.Map;
 
 @Service
 public class JwtService {
@@ -15,32 +16,52 @@ public class JwtService {
     @Value("${security.jwt.expiration-in-minutes}")
     private Long EXPIRATION_IN_MINUTES;
     @Value("${jwt.secret}")
-    private String secretKey;
+    private String SECRET_KEY;
 
-    public String generateToken(User user) {
+    public String generateToken(UserDetails user, Map<String, Object> extraClaims) {
 
         Date issuedAt = new Date(System.currentTimeMillis());
         Date expiration = new Date( (EXPIRATION_IN_MINUTES * 60 * 1000) + issuedAt.getTime() );
 
-        return Jwts.builder()
-                .setSubject(user.getEmail())
-                .claim("firstName", user.getFirstName())
-                .claim("lastName", user.getLastName())
-                .setIssuedAt(issuedAt)
-                .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS512, secretKey.getBytes())
+        String jwt = Jwts.builder()
+                .header()
+                    .type("JWT")
+                    .and()
+
+                .subject(user.getUsername())
+                .issuedAt(issuedAt)
+                .expiration(expiration)
+                .claims(extraClaims)
+
+                .signWith(generateKey(), Jwts.SIG.HS256)
                 .compact();
+
+        return jwt;
+
     }
-    public boolean validateToken(String token) {
+
+    public boolean validateToken(String jwt) {
         try {
-            Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token);
+            Jwts.parser().verifyWith(generateKey()).build()
+                            .parseSignedClaims(jwt).getPayload();
             return true;
         } catch (JwtException e) {
             return false;
         }
     }
 
-    public String getEmailFromToken(String token) {
-        return Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token).getBody().getSubject();
+    private SecretKey generateKey () {
+        byte[] key = SECRET_KEY.getBytes();
+        return Keys.hmacShaKeyFor(key);
     }
+
+    public String extractEmail(String jwt) {
+        return extractAllClaims(jwt).getSubject();
+    }
+
+    public Claims extractAllClaims (String jwt) {
+        return Jwts.parser().verifyWith(generateKey()).build()
+                .parseSignedClaims(jwt).getPayload();
+    }
+
 }

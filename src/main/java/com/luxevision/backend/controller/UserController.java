@@ -8,7 +8,7 @@ import com.luxevision.backend.service.auth.JwtService;
 import com.luxevision.backend.dto.ApiError;
 import com.luxevision.backend.dto.RegisteredUser;
 import com.luxevision.backend.entity.User;
-import com.luxevision.backend.entity.UserRole;
+import com.luxevision.backend.entity.util.Role;
 import com.luxevision.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -47,7 +49,7 @@ public class UserController {
         user.setLastName(saveUser.getLastName());
         user.setEmail(saveUser.getEmail());
         user.setPassword(passwordEncoder.encode(saveUser.getPassword()));
-        user.setUserRole(UserRole.ROLE_USER);
+        user.setRole(Role.ROLE_CUSTOMER);
 
 
         User userSaved = userService.saveUser(user);
@@ -58,7 +60,7 @@ public class UserController {
         userDTO.setLastName(saveUser.getLastName());
         userDTO.setEmail(userSaved.getEmail());
 
-        String jwt = jwtService.generateToken(userSaved);
+        String jwt = jwtService.generateToken(userSaved, generateExtraClaims(userSaved));
         userDTO.setJwt(jwt);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
@@ -85,9 +87,21 @@ public class UserController {
             apiError.setMethod("POST");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(apiError);
         }
-        String token = jwtService.generateToken(user);
+        String token = jwtService.generateToken(user, generateExtraClaims(user));
         LoginResponse logResp = new LoginResponse();
         logResp.setJwt(token);
         return ResponseEntity.ok(logResp);
     }
+
+    private Map<String, Object> generateExtraClaims (User user) {
+
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("firstName", user.getFirstName());
+        extraClaims.put("role", user.getRole().name());
+        extraClaims.put("authorities", user.getAuthorities());
+
+        return extraClaims;
+
+    }
+
 }

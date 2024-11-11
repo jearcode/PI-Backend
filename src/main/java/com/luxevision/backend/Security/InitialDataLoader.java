@@ -1,7 +1,7 @@
 package com.luxevision.backend.Security;
 
 import com.luxevision.backend.entity.User;
-import com.luxevision.backend.entity.UserRole;
+import com.luxevision.backend.entity.util.Role;
 import com.luxevision.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
@@ -32,7 +32,7 @@ public class InitialDataLoader {
                 adminUser.setLastName("admin");
                 adminUser.setPassword(passCifrado);
                 adminUser.setEmail("admin@admin.com");
-                adminUser.setUserRole(UserRole.ROLE_ADMIN);
+                adminUser.setRole(Role.ROLE_ADMINISTRATOR);
                 adminUser.setSignupDate(LocalDateTime.now());
                 userRepository.save(adminUser);
 
