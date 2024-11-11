@@ -62,7 +62,24 @@ CREATE TABLE IF NOT EXISTS Photographers (
     CONSTRAINT pk_photographer PRIMARY KEY (Id),
     CONSTRAINT fk_photographer FOREIGN KEY (studio_Id) REFERENCES Studios(Id)
 );
-     
+         
+CREATE TABLE IF NOT EXISTS Features (
+	Id 				INT 		AUTO_INCREMENT,
+    feature_name 	VARCHAR(50) NOT NULL,
+    icon 			VARCHAR(50) NULL,
+    
+    CONSTRAINT pk_feature PRIMARY KEY (Id)
+);
+
+CREATE TABLE IF NOT EXISTS Studio_Features (
+	Id				INT AUTO_INCREMENT,
+    studio_Id 		INT NOT NULL,
+    feature_Id 		INT NOT NULL,
+    
+    CONSTRAINT pk_studio_feature PRIMARY KEY (Id),
+    CONSTRAINT fk_studio_feature_studio FOREIGN KEY (studio_Id) REFERENCES Studios(Id),
+    CONSTRAINT fk_studio_feature_feature FOREIGN KEY (feature_Id) REFERENCES Features(Id)
+);
      
      
      
