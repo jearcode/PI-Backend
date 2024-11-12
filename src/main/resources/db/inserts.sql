@@ -3,6 +3,6 @@ USE LuxeVision;
 INSERT INTO
 	User_Roles (role)
 VALUES
-	('ROLE_USER'),
-    ('ROLE_ADMIN');
+    ('ROLE_ADMINISTRATOR'),
+    ('ROLE_CUSTOMER');
     
