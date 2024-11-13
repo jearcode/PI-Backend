@@ -1,15 +1,17 @@
 package com.luxevision.backend.controller;
 
 import com.luxevision.backend.dto.SaveUser;
-import com.luxevision.backend.dto.auth.LoginRequest;
-import com.luxevision.backend.dto.auth.LoginResponse;
+import com.luxevision.backend.dto.auth.*;
 import com.luxevision.backend.exception.InvalidPasswordException;
+import com.luxevision.backend.exception.NoChangesMadeException;
+import com.luxevision.backend.exception.UserEmailAlreadyRegisteredException;
 import com.luxevision.backend.service.auth.JwtService;
 import com.luxevision.backend.dto.ApiError;
 import com.luxevision.backend.dto.RegisteredUser;
 import com.luxevision.backend.entity.User;
 import com.luxevision.backend.entity.util.Role;
 import com.luxevision.backend.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -101,7 +105,107 @@ public class UserController {
         extraClaims.put("authorities", user.getAuthorities());
 
         return extraClaims;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<?>> findAllUsers() {
+
+        List<User> users = userService.getAllUsers();
+
+        List<UserAdminView> userAdminViewList = users.stream()
+                .map(user -> UserAdminView.builder()
+                        .id(user.getId())
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .email(user.getEmail())
+                        .role(user.getRole().name())
+                        .signupDate(user.getSignupDate())
+                        .enabled(user.isEnabled())
+                        .build()
+                )
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(userAdminViewList);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById (@PathVariable Long id) {
+
+        return ResponseEntity.ok(userService.findUserById(id));
 
     }
+
+    @PutMapping
+    public ResponseEntity<User> updateUser (@RequestBody @Valid UserUpdateRequest userUpdateRequest) throws UserEmailAlreadyRegisteredException {
+
+        User user = new User();
+        user.setId(userUpdateRequest.getId());
+        user.setFirstName(userUpdateRequest.getFirstName());
+        user.setLastName(userUpdateRequest.getLastName());
+        user.setEmail(userUpdateRequest.getEmail());
+        user.setPassword(userUpdateRequest.getPassword());
+
+        return ResponseEntity.ok(userService.updateUser(user));
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUserById (@PathVariable Long id) {
+
+        userService.deleteUserById(id);
+        return ResponseEntity.noContent().build();
+
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserViewProfileResponse> findMyProfile () {
+        User user = userService.findLoggedInUser();
+
+        return ResponseEntity.ok(UserViewProfileResponse.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .role(user.getRole().name())
+                .build());
+    }
+
+    @PutMapping("/{id}/promote")
+    public ResponseEntity<User> assignAdmin (@PathVariable Long id) {
+        User user = userService.assignRoleAdmin(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("/{id}/demote")
+    public ResponseEntity<User> revokeAdmin (@PathVariable Long id) {
+        User user = userService.revokeRoleAdmin(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("/self")
+    public ResponseEntity<?> updateAuthenticatedUserProfile (@RequestBody @Valid UserAuthUpdateRequest userAuthUpdateRequest) throws UserEmailAlreadyRegisteredException, NoChangesMadeException {
+
+        User user = new User();
+        user.setFirstName(userAuthUpdateRequest.getFirstName());
+        user.setLastName(userAuthUpdateRequest.getLastName());
+        user.setEmail(userAuthUpdateRequest.getEmail());
+        user.setPassword(userAuthUpdateRequest.getPassword());
+
+        User updatedUser = userService.updateAuthenticatedUserProfile(user);
+
+        String jwt = jwtService.generateToken(updatedUser, generateExtraClaims(updatedUser));
+
+        return ResponseEntity.ok(UserAuthUpdateResponse.builder()
+                .id(updatedUser.getId())
+                .firstName(updatedUser.getFirstName())
+                .lastName(updatedUser.getLastName())
+                .email(updatedUser.getEmail())
+                .role(updatedUser.getRole().name())
+                .jwt(jwt)
+                .build());
+
+    }
+
+
 
 }

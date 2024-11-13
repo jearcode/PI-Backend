@@ -24,6 +24,8 @@ public enum Role {
             RolePermission.DELETE_ONE_FEATURE,
             RolePermission.READ_ALL_USERS,
             RolePermission.READ_ONE_USER,
+            RolePermission.READ_MY_PROFILE,
+            RolePermission.UPDATE_MY_PROFILE,
             RolePermission.CREATE_ONE_USER,
             RolePermission.UPDATE_ONE_USER,
             RolePermission.DELETE_ONE_USER,
@@ -38,7 +40,9 @@ public enum Role {
             RolePermission.READ_ALL_SPECIALTIES,
             RolePermission.READ_ONE_SPECIALTY,
             RolePermission.READ_ALL_FEATURES,
-            RolePermission.READ_ONE_FEATURE
+            RolePermission.READ_ONE_FEATURE,
+            RolePermission.READ_MY_PROFILE,
+            RolePermission.UPDATE_MY_PROFILE
     ));
 
     private List<RolePermission> permissions;
