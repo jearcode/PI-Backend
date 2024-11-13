@@ -1,8 +1,11 @@
 package com.luxevision.backend.controller;
+import com.luxevision.backend.dto.SaveStudio;
+import com.luxevision.backend.dto.UpdateStudio;
 import com.luxevision.backend.entity.*;
 import com.luxevision.backend.exception.ObjectNotFoundException;
 import com.luxevision.backend.exception.StudioNameAlreadyRegisteredException;
 import com.luxevision.backend.service.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/studios")
@@ -38,6 +40,12 @@ public class StudioController {
 
     @Autowired
     private StudioFeatureService studioFeatureService;
+
+    @Autowired
+    private SpecialtyService specialtyService;
+
+    @Autowired
+    private FeatureService featureService;
 
     @GetMapping
     public List<Studio> getAllStudios() {
@@ -66,7 +74,7 @@ public class StudioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveStudio (@RequestPart("studio") Studio studio,
+    public ResponseEntity<?> saveStudio (@RequestPart("studio") @Valid SaveStudio studio,
                                          @RequestPart("profileImage")MultipartFile profileImage,
                                          @RequestPart("portfolioImages") List<MultipartFile> portfolioImages)
             throws StudioNameAlreadyRegisteredException {
@@ -75,32 +83,68 @@ public class StudioController {
             throw new StudioNameAlreadyRegisteredException();
         }
 
-        Location location = new Location();
-        location.setCity(studio.getLocation().getCity());
-        location.setState(studio.getLocation().getState());
-        location.setCountry(studio.getLocation().getCountry());
-        location.setAddress(studio.getLocation().getAddress());
-        Location locationSaved = locationService.saveLocation(location);
+        for (Integer specialtyId : studio.getSpecialties()) {
 
-        Studio studioToSave = studio;
-        studioToSave.setLocation(locationSaved);
+            specialtyService.findSpecialtyById(specialtyId).orElseThrow(
+                    () -> new ObjectNotFoundException("Specialty with id: " + specialtyId + " not found")
+            );
+        }
 
-        Studio studioSaved = studioService.saveStudio(studioToSave);
+        for (Long featureId : studio.getFeatures()) {
+
+            featureService.findFeatureById(featureId).orElseThrow(
+                    () -> new ObjectNotFoundException("Feature with id: " + featureId + " not found")
+            );
+
+        }
+
+        Location location = locationService.saveLocation(studio.getLocation());
+
+        Studio StudioToSave = new Studio();
+
+        StudioToSave.setStudioName(studio.getStudioName());
+        StudioToSave.setEmail(studio.getEmail());
+        StudioToSave.setPhone(studio.getPhone());
+        StudioToSave.setDescription(studio.getDescription());
+        StudioToSave.setSignup(studio.getSignup());
+        StudioToSave.setYearsOfExperience(studio.getYearsOfExperience());
+        StudioToSave.setLocation(location);
+        StudioToSave.setPhotographers(studio.getPhotographers());
+
+        Studio studioSaved = studioService.saveStudio(StudioToSave);
 
         for (Photographer photographer : studio.getPhotographers()) {
             photographer.setStudio(studioSaved);
             photographerService.savePhotographer(photographer);
         }
 
-        for (StudioSpecialty studioSpecialty : studio.getStudioSpecialties()) {
+        List<StudioSpecialty> studioSpecialties = new ArrayList<>();
+        for (Integer specialtyId : studio.getSpecialties()) {
+            StudioSpecialty studioSpecialty = new StudioSpecialty();
             studioSpecialty.setStudio(studioSaved);
-            studioSpecialtyService.saveStudioSpecialty(studioSpecialty);
+
+            Specialty specialtyFromDB = specialtyService.findSpecialtyById(specialtyId).orElseThrow(
+                    () -> new ObjectNotFoundException("Specialty not found")
+            );
+            studioSpecialty.setSpecialty(specialtyFromDB);
+
+            studioSpecialties.add(studioSpecialtyService.saveStudioSpecialty(studioSpecialty));
         }
 
-        for (StudioFeature studioFeature : studio.getStudioFeatures()) {
+        List<StudioFeature> studioFeatures = new ArrayList<>();
+        for (Long featureId : studio.getFeatures()) {
+            StudioFeature studioFeature = new StudioFeature();
             studioFeature.setStudio(studioSaved);
-            studioFeatureService.saveStudioFeature(studioFeature);
+
+            Feature featureFromDB = featureService.findFeatureById(featureId).orElseThrow(
+                    () -> new ObjectNotFoundException("Feature not found")
+            );
+            studioFeature.setFeature(featureFromDB);
+            studioFeatures.add(studioFeatureService.saveStudioFeature(studioFeature));
         }
+
+        studioSaved.setStudioSpecialties(studioSpecialties);
+        studioSaved.setStudioFeatures(studioFeatures);
 
         try {
             String profilePhotoUrl = s3Service.uploadFile(profileImage, studio.getStudioName(), "");
@@ -119,13 +163,13 @@ public class StudioController {
             }
 
             studioSaved.setPortfolioPhotos(portfolioPhotos);
-            studioService.updateStudio(studioSaved);
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(studioSaved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(studioService.updateStudio(studioSaved));
+
 
     }
 
@@ -140,46 +184,84 @@ public class StudioController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateStudio (@RequestPart("studio") Studio studio,
-                                         @RequestPart("profileImage")MultipartFile profileImage,
-                                         @RequestPart("portfolioImages") List<MultipartFile> portfolioImages)
+    public ResponseEntity<?> updateStudio (@RequestPart("studio") @Valid UpdateStudio studio,
+                                              @RequestPart("profileImage")MultipartFile profileImage,
+                                              @RequestPart("portfolioImages") List<MultipartFile> portfolioImages)
             throws StudioNameAlreadyRegisteredException {
 
-        Studio studioToUpdate = studioService.findStudioById(studio.getId()).orElseThrow(
+        Studio studioFromDB = studioService.findStudioById(studio.getId()).orElseThrow(
                 () -> new ObjectNotFoundException("Studio not found")
         );
 
-        if (!studioToUpdate.getStudioName().equals(studio.getStudioName()) &&
+
+        if (!studioFromDB.getStudioName().equals(studio.getStudioName()) &&
                 studioService.existsStudioByStudioName(studio.getStudioName())) {
             throw new StudioNameAlreadyRegisteredException();
         }
 
-        Location location = new Location();
-        location.setCity(studio.getLocation().getCity());
-        location.setState(studio.getLocation().getState());
-        location.setCountry(studio.getLocation().getCountry());
-        location.setAddress(studio.getLocation().getAddress());
-        Location locationSaved = locationService.saveLocation(location);
+        for (Integer specialtyId : studio.getSpecialties()) {
 
-        Studio studioToSave = studio;
-        studioToSave.setLocation(locationSaved);
+            specialtyService.findSpecialtyById(specialtyId).orElseThrow(
+                    () -> new ObjectNotFoundException("Specialty with id: " + specialtyId + " not found")
+            );
+        }
 
-        Studio studioSaved = studioService.saveStudio(studioToSave);
+        for (Long featureId : studio.getFeatures()) {
+
+            featureService.findFeatureById(featureId).orElseThrow(
+                    () -> new ObjectNotFoundException("Feature with id: " + featureId + " not found")
+            );
+
+        }
+
+        Location location = locationService.saveLocation(studio.getLocation());
+
+        Studio StudioToSave = new Studio();
+
+        StudioToSave.setId(studio.getId());
+        StudioToSave.setStudioName(studio.getStudioName());
+        StudioToSave.setEmail(studio.getEmail());
+        StudioToSave.setPhone(studio.getPhone());
+        StudioToSave.setDescription(studio.getDescription());
+        StudioToSave.setSignup(studio.getSignup());
+        StudioToSave.setYearsOfExperience(studio.getYearsOfExperience());
+        StudioToSave.setLocation(location);
+        StudioToSave.setPhotographers(studio.getPhotographers());
+
+        Studio studioSaved = studioService.saveStudio(StudioToSave);
 
         for (Photographer photographer : studio.getPhotographers()) {
             photographer.setStudio(studioSaved);
             photographerService.savePhotographer(photographer);
         }
 
-        for (StudioSpecialty studioSpecialty : studio.getStudioSpecialties()) {
+        List<StudioSpecialty> studioSpecialties = new ArrayList<>();
+        for (Integer specialtyId : studio.getSpecialties()) {
+            StudioSpecialty studioSpecialty = new StudioSpecialty();
             studioSpecialty.setStudio(studioSaved);
-            studioSpecialtyService.saveStudioSpecialty(studioSpecialty);
+
+            Specialty specialtyFromDB = specialtyService.findSpecialtyById(specialtyId).orElseThrow(
+                    () -> new ObjectNotFoundException("Specialty not found")
+            );
+            studioSpecialty.setSpecialty(specialtyFromDB);
+
+            studioSpecialties.add(studioSpecialtyService.saveStudioSpecialty(studioSpecialty));
         }
 
-        for (StudioFeature studioFeature : studio.getStudioFeatures()) {
+        List<StudioFeature> studioFeatures = new ArrayList<>();
+        for (Long featureId : studio.getFeatures()) {
+            StudioFeature studioFeature = new StudioFeature();
             studioFeature.setStudio(studioSaved);
-            studioFeatureService.saveStudioFeature(studioFeature);
+
+            Feature featureFromDB = featureService.findFeatureById(featureId).orElseThrow(
+                    () -> new ObjectNotFoundException("Feature not found")
+            );
+            studioFeature.setFeature(featureFromDB);
+            studioFeatures.add(studioFeatureService.saveStudioFeature(studioFeature));
         }
+
+        studioSaved.setStudioSpecialties(studioSpecialties);
+        studioSaved.setStudioFeatures(studioFeatures);
 
         try {
             String profilePhotoUrl = s3Service.uploadFile(profileImage, studio.getStudioName(), "");
@@ -198,13 +280,13 @@ public class StudioController {
             }
 
             studioSaved.setPortfolioPhotos(portfolioPhotos);
-            studioService.updateStudio(studioSaved);
 
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(studioSaved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(studioService.updateStudio(studioSaved));
+
 
     }
 

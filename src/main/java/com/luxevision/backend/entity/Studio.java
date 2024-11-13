@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = "portfolioPhotos")
+@EqualsAndHashCode(exclude = {"portfolioPhotos", "studioSpecialties", "photographers", "studioFeatures"})
 public class Studio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class Studio {
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
     private List<PortfolioPhoto> portfolioPhotos;
 
-    @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
     private List<StudioSpecialty> studioSpecialties;
 
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
