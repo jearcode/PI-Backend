@@ -86,7 +86,10 @@ public class UserService implements UserDetailsService {
         }
         userFromDB.setFirstName(user.getFirstName());
         userFromDB.setLastName(user.getLastName());
-        userFromDB.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (user.getPassword() != null) {
+            userFromDB.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
 
         return userRepository.save(userFromDB);
 
