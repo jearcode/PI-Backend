@@ -1,64 +1,497 @@
--- 1. Insert data into the Location table
-INSERT INTO location (city, state, country, address) VALUES ('New York', 'NY', 'USA', '123 Main St, New York, NY 10001');
-INSERT INTO location (city, state, country, address) VALUES ('Los Angeles', 'CA', 'USA', '456 Elm St, Los Angeles, CA 90001');
-INSERT INTO location (city, state, country, address) VALUES ('Chicago', 'IL', 'USA', '789 Oak St, Chicago, IL 60601');
-INSERT INTO location (city, state, country, address) VALUES ('San Francisco', 'CA', 'USA', '123 Bay St, San Francisco, CA 94101');
-INSERT INTO location (city, state, country, address) VALUES ('Seattle', 'WA', 'USA', '456 Pine St, Seattle, WA 98101');
-INSERT INTO location (city, state, country, address) VALUES ('Miami', 'FL', 'USA', '789 Ocean Dr, Miami, FL 33139');
-INSERT INTO location (city, state, country, address) VALUES ('Houston', 'TX', 'USA', '101 Texas St, Houston, TX 77001');
-INSERT INTO location (city, state, country, address) VALUES ('Boston', 'MA', 'USA', '202 Freedom Ave, Boston, MA 02101');
-INSERT INTO location (city, state, country, address) VALUES ('Denver', 'CO', 'USA', '303 Mile High St, Denver, CO 80201');
-INSERT INTO location (city, state, country, address) VALUES ('Austin', 'TX', 'USA', '404 Music Ln, Austin, TX 78701');
-INSERT INTO location (city, state, country, address) VALUES ('Orlando', 'FL', 'USA', '505 Magic Way, Orlando, FL 32801');
-INSERT INTO location (city, state, country, address) VALUES ('Atlanta', 'GA', 'USA', '606 Peach St, Atlanta, GA 30301');
-INSERT INTO location (city, state, country, address) VALUES ('Las Vegas', 'NV', 'USA', '707 Vegas Blvd, Las Vegas, NV 89101');
-INSERT INTO location (city, state, country, address) VALUES ('Phoenix', 'AZ', 'USA', '808 Sun Dr, Phoenix, AZ 85001');
-INSERT INTO location (city, state, country, address) VALUES ('Philadelphia', 'PA', 'USA', '909 Liberty Rd, Philadelphia, PA 19101');
-INSERT INTO location (city, state, country, address) VALUES ('San Diego', 'CA', 'USA', '1010 Coastline Ave, San Diego, CA 92101');
-INSERT INTO location (city, state, country, address) VALUES ('Detroit', 'MI', 'USA', '1111 Motor St, Detroit, MI 48201');
-INSERT INTO location (city, state, country, address) VALUES ('Nashville', 'TN', 'USA', '1212 Music Row, Nashville, TN 37201');
+-- 1. Insert data into the Specialty table
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Wedding Photography', 'Capture memorable wedding moments with emotional and professional shots.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Wedding/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Portrait Photography', 'Highlight personality and expression through close-up, detailed portraits.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Portrait/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Product Photography', 'Showcase products with high-quality images to boost brand appeal and sales.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Product/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Corporate Photography', 'Present a professional business image with corporate and branding photos.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Corporate/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Graduation Photography', 'Celebrate academic achievements with timeless graduation portraits.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Graduation/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Fashion Photography', 'Capture the essence of style with dynamic, creative fashion images.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Fashion/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Food Photography', 'Highlight the deliciousness of food with mouthwatering visual details.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Food/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Real Estate Photography', 'Display properties attractively for potential buyers and clients.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Real Estate/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Landscape Photography', 'Capture nature’s beauty with stunning, scenic landscape shots.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Landscape/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Pet Photography', 'Capture the unique charm and personality of pets in beautiful photos.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Pet/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Sports Photography', 'Capture dynamic and exciting moments of sports and athletes.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Sports/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Travel Photography', 'Showcase the beauty and diversity of global travel destinations.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Travel/profile-image');
+INSERT INTO specialty (specialty_name, description, image) VALUES ('Artistic Photography', 'Express creativity with unique, experimental artistic images.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Artistic/profile-image');
 
--- 2. Insert data into the Specialty table
-INSERT INTO specialty (specialty_name) VALUES ('Wedding Photography');
-INSERT INTO specialty (specialty_name) VALUES ('Product Photography');
-INSERT INTO specialty (specialty_name) VALUES ('Portrait Photography');
-INSERT INTO specialty (specialty_name) VALUES ('Event Photography');
+
+INSERT INTO feature (feature_name, icon) VALUES ('In-Studio Session', '');
+INSERT INTO feature (feature_name, icon) VALUES ('At-Home Session', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Makeup', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Wardrobe', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Stylist', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Daytime Schedule', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Nighttime Schedule', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Themed Sets', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Photo Printing', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Digital Album', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Video', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Editing', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Varied Backgrounds', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Pose Guidance', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Props and Accessories', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Natural Lighting', '');
+INSERT INTO feature (feature_name, icon) VALUES ('Flash Lighting', '');
+
+
+
+-- 2. Insert data into the Location table
+INSERT INTO location (city, state, country, address) VALUES ('Los Angeles', 'California', 'USA', '123 Adora St, Los Angeles, CA 90001');
+INSERT INTO location (city, state, country, address) VALUES ('Miami', 'Florida', 'USA', '456 Ocean Dr, Miami, FL 33139');
+INSERT INTO location (city, state, country, address) VALUES ('Seattle', 'Washington', 'USA', '789 Pine St, Seattle, WA 98101');
+INSERT INTO location (city, state, country, address) VALUES ('San Francisco', 'California', 'USA', '101 Lombard St, San Francisco, CA 94111');
+INSERT INTO location (city, state, country, address) VALUES ('Denver', 'Colorado', 'USA', '202 Broadway, Denver, CO 80203');
+INSERT INTO location (city, state, country, address) VALUES ('Chicago', 'Illinois', 'USA', '303 Lake Shore Dr, Chicago, IL 60611');
+INSERT INTO location (city, state, country, address) VALUES ('Austin', 'Texas', 'USA', '404 South Congress Ave, Austin, TX 78704');
+INSERT INTO location (city, state, country, address) VALUES ('New York', 'New York', 'USA', '505 Park Ave, New York, NY 10022');
+INSERT INTO location (city, state, country, address) VALUES ('Portland', 'Oregon', 'USA', '606 SE Grand Ave, Portland, OR 97214');
+INSERT INTO location (city, state, country, address) VALUES ('Boston', 'Massachusetts', 'USA', '707 Beacon St, Boston, MA 02215');
+INSERT INTO location (city, state, country, address) VALUES ('Phoenix', 'Arizona', 'USA', '808 Grand Canyon Dr, Phoenix, AZ 85004');
+INSERT INTO location (city, state, country, address) VALUES ('Chicago', 'Illinois', 'USA', '789 SnapTails Rd, Chicago, IL 60601');
+INSERT INTO location (city, state, country, address) VALUES ('San Francisco', 'California', 'USA', '456 Elysium Ave, San Francisco, CA 94101');
+INSERT INTO location (city, state, country, address) VALUES ('Los Angeles', 'California', 'USA', '123 Sunset Blvd');
+INSERT INTO location (city, state, country, address) VALUES ('New York', 'New York', 'USA', '456 Madison Ave');
+INSERT INTO location (city, state, country, address) VALUES ('Toronto', 'Ontario', 'Canada', '789 King St');
+INSERT INTO location (city, state, country, address) VALUES ('Paris', 'Île-de-France', 'France', '101 Rue de Rivoli');
+INSERT INTO location (city, state, country, address) VALUES ('London', 'Greater London', 'UK', '22 Baker Street');
+INSERT INTO location (city, state, country, address) VALUES ('Tokyo', 'Tokyo', 'Japan', '1-1 Chiyoda');
+INSERT INTO location (city, state, country, address) VALUES ('Sydney', 'New South Wales', 'Australia', '77 Harbour St');
+INSERT INTO location (city, state, country, address) VALUES ('Berlin', 'Berlin', 'Germany', '12 Alexanderplatz');
+INSERT INTO location (city, state, country, address) VALUES ('Madrid', 'Community of Madrid', 'Spain', '23 Gran Via');
+INSERT INTO location (city, state, country, address) VALUES ('Mexico City', 'CDMX', 'Mexico', '44 Paseo de la Reforma');
+INSERT INTO location (city, state, country, address) VALUES ('Rome', 'Lazio', 'Italy', '99 Via del Corso');
 
 -- 3. Insert data into the Studio table
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Luxe Wedding Studio', 'info@luxewedding.com', '123-456-7890', 'Specializing in wedding photography.', NOW(), 5, 'https://fake-s3-bucket.s3.amazonaws.com/profile1.jpg', 1);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('LA Product Shots', 'contact@laproductshots.com', '987-654-3210', 'Expert in product photography.', NOW(), 3, 'https://fake-s3-bucket.s3.amazonaws.com/profile2.jpg', 2);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Chicago Portraits', 'hello@chicagoportraits.com', '555-123-4567', 'Capturing portraits that tell a story.', NOW(), 10, 'https://fake-s3-bucket.s3.amazonaws.com/profile3.jpg', 3);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Sunset Photography', 'contact@sunsetphoto.com', '111-222-3333', 'Golden hour specialists.', NOW(), 8, 'https://fake-s3-bucket.s3.amazonaws.com/profile4.jpg', 4);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Urban Shots', 'info@urbanshots.com', '222-333-4444', 'Specialized in cityscapes.', NOW(), 4, 'https://fake-s3-bucket.s3.amazonaws.com/profile5.jpg', 5);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Nature Focus', 'contact@naturefocus.com', '333-444-5555', 'Capturing natures beauty.', NOW(), 12, 'https://fake-s3-bucket.s3.amazonaws.com/profile6.jpg', 6);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Architectural Lens', 'hello@archlens.com', '444-555-6666', 'Experts in architectural photography.', NOW(), 7, 'https://fake-s3-bucket.s3.amazonaws.com/profile7.jpg', 7);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Foodtography', 'info@foodtography.com', '555-666-7777', 'Specialists in food photography.', NOW(), 6, 'https://fake-s3-bucket.s3.amazonaws.com/profile8.jpg', 8);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Fashion Frames', 'contact@fashionframes.com', '666-777-8888', 'Capturing the latest trends.', NOW(), 9, 'https://fake-s3-bucket.s3.amazonaws.com/profile9.jpg', 9);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Pet Portraits', 'hello@petportraits.com', '777-888-9999', 'Adorable pet portraits.', NOW(), 5, 'https://fake-s3-bucket.s3.amazonaws.com/profile10.jpg', 10);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Vintage Vibes', 'info@vintagevibes.com', '888-999-0000', 'Specializing in vintage photography.', NOW(), 10, 'https://fake-s3-bucket.s3.amazonaws.com/profile11.jpg', 11);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Studio Portraits', 'contact@studioportraits.com', '999-000-1111', 'Professional studio portraits.', NOW(), 11, 'https://fake-s3-bucket.s3.amazonaws.com/profile12.jpg', 12);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Travelography', 'hello@travelography.com', '000-111-2222', 'Travel photography experts.', NOW(), 3, 'https://fake-s3-bucket.s3.amazonaws.com/profile13.jpg', 13);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Abstract Arts', 'info@abstractarts.com', '111-333-5555', 'Abstract and creative photography.', NOW(), 6, 'https://fake-s3-bucket.s3.amazonaws.com/profile14.jpg', 14);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Lifestyle Shoots', 'contact@lifestyleshoots.com', '222-444-6666', 'Lifestyle and candid shots.', NOW(), 8, 'https://fake-s3-bucket.s3.amazonaws.com/profile15.jpg', 15);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Nightscape Studio', 'hello@nightscapestudio.com', '333-555-7777', 'Specialized in night photography.', NOW(), 2, 'https://fake-s3-bucket.s3.amazonaws.com/profile16.jpg', 16);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Black & White Classics', 'info@bwclassics.com', '444-666-8888', 'Timeless black & white photography.', NOW(), 15, 'https://fake-s3-bucket.s3.amazonaws.com/profile17.jpg', 17);
-INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Drone Vision', 'contact@dronevision.com', '555-777-9999', 'Aerial and drone shots.', NOW(), 4, 'https://fake-s3-bucket.s3.amazonaws.com/profile18.jpg', 18);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Adora', 'contact@adora.com', '+1(123)456-7890', 'Adora specializes in wedding and portrait photography, ensuring that every emotion and detail is beautifully captured for lifelong memories.', '2024-10-31T02:51:25.707815', 12, 'https://backend-s3-images.s3.amazonaws.com/studios/Adora/profile-image', 1);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Borcelle', 'hello@borcelle.com', '+1(234)567-8901', 'Borcelle focuses on fashion photography, bringing creativity and style to life in every shot, ensuring clients look their absolute best.', '2023-08-12T10:14:37.402831', 8, 'https://backend-s3-images.s3.amazonaws.com/studios/Borcelle/profile-image', 2);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Eyelens', 'info@eyelens.com', '+1(345)678-9012', 'Eyelens is your go-to for corporate and product photography, highlighting brand identity with striking visuals that stand out in the marketplace.', '2024-02-28T17:21:12.309485', 5, 'https://backend-s3-images.s3.amazonaws.com/studios/Eyelens/profile-image', 3);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Fauget', 'booking@fauget.com', '+1(456)789-0123', 'Fauget excels in real estate photography, creating stunning visuals that showcase properties in their best light, attracting potential buyers and elevating listings.', '2023-11-01T15:37:29.584917', 10, 'https://backend-s3-images.s3.amazonaws.com/studios/Fauget/profile-image', 4);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Focus Photography', 'support@focusphotography.com', '+1(567)890-1234', 'Focus Photography captures the thrill of travel and breathtaking landscapes, providing imagery that inspires adventure and wanderlust.', '2024-03-15T08:51:42.216720', 7, 'https://backend-s3-images.s3.amazonaws.com/studios/Focus Photography/profile-image', 5);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('HanOver', 'contact@hanover.com', '+1(678)901-2345', 'HanOver specializes in sports photography, delivering dynamic images that capture the excitement and intensity of every event.', '2022-09-25T21:42:51.198713', 15, 'https://backend-s3-images.s3.amazonaws.com/studios/HanOver/profile-image', 6);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Lavana', 'hello@lavana.com', '+1(789)012-3456', 'Lavana creates unforgettable memories through wedding and food photography, blending creativity with authenticity.', '2023-12-07T19:37:50.616712', 9, 'https://backend-s3-images.s3.amazonaws.com/studios/Lavana/profile-image', 7);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Matt Zhang', 'bookings@mattzhang.com', '+1(890)123-4567', 'Matt Zhang specializes in artistic and portrait photography, capturing personality with a unique, creative approach.', '2024-01-18T11:29:23.512894', 6, 'https://backend-s3-images.s3.amazonaws.com/studios/Matt Zhang/profile-image', 8);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Moon Studio', 'info@moonstudio.com', '+1(901)234-5678', 'Moon Studio excels in graduation photography, capturing the joy and accomplishment of each graduate in beautiful settings.', '2024-04-05T14:17:06.832194', 11, 'https://backend-s3-images.s3.amazonaws.com/studios/Moon Studio/profile-image', 9);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Noah', 'reach@noah.com', '+1(012)345-6789', 'Noah focuses on product photography, ensuring that every detail of your product is highlighted to attract customers.', '2023-05-22T07:11:44.103275', 4, 'https://backend-s3-images.s3.amazonaws.com/studios/Noah/profile-image', 10);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Rimberio', 'support@rimberio.com', '+1(234)567-8901', 'Rimberio specializes in product photography, showcasing the details and appeal of your products with stunning and precise images.', '2023-06-19T06:54:32.921387', 13, 'https://backend-s3-images.s3.amazonaws.com/studios/Rimberio/profile-image', 11);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ( 'SnapTails', 'info@snaptails.com', '+1(123)456-7892', 'SnapTails captures the essence of your pets through stunning photography, creating joyful memories of your furry companions.', NOW(), 5, 'https://backend-s3-images.s3.amazonaws.com/studios/SnapTails/profile-image', 12);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ( 'Elysium', 'info@elysium.com', '+1(123)456-7893', 'Elysium specializes in artistic photography, transforming emotions into visual masterpieces that captivate the soul.', NOW(), 4, 'https://backend-s3-images.s3.amazonaws.com/studios/Elysium/profile-image', 13);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Charm Light', 'info@charmlight.com', '+1(213)555-0182', 'Capturing the essence of pets and individuals, Charm Light offers enchanting portraits full of life and personality.', '2024-10-31T02:51:25.707815', 5, 'https://backend-s3-images.s3.amazonaws.com/studios/CharmLight/profile-image', 14);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Clix', 'contact@clixrealestate.com', '+1(212)555-0199', 'Specializing in real estate photography, Clix enhances property appeal with stunning visuals, perfect for real estate listings.', '2024-10-31T02:51:25.707815', 8, 'https://backend-s3-images.s3.amazonaws.com/studios/Clix/profile-image', 15);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('ColorShot', 'hello@colorshot.com', '+1(416)555-0200', 'From dynamic sports to crisp product photography, ColorShot provides vivid, high-quality images to showcase your brand.', '2024-10-31T02:51:25.707815', 10, 'https://backend-s3-images.s3.amazonaws.com/studios/ColorShot/profile-image', 16);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Essence', 'info@essenceportrait.com', '+1(331)555-0211', 'Essence captures timeless portraits that highlight individuality and beauty in each person, creating memories that last.', '2024-10-31T02:51:25.707815', 7, 'https://backend-s3-images.s3.amazonaws.com/studios/Essence/profile-image', 17);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Frameo', 'contact@frameoart.com', '+1(437)555-0222', 'Frameo creates unique artistic photography, blending creativity and technique to capture exceptional and inspiring moments.', '2024-10-31T02:51:25.707815', 12, 'https://backend-s3-images.s3.amazonaws.com/studios/Frameo/profile-image', 18);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Lumina', 'inquiries@luminafashion.com', '+1(646)555-0233', 'Specializing in fashion photography, Lumina brings style and elegance to every shot, perfect for brands and fashion portfolios.', '2024-10-31T02:51:25.707815', 9, 'https://backend-s3-images.s3.amazonaws.com/studios/Lumina/profile-image', 19);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Optix', 'optix@foodphotography.com', '+1(718)555-0244', 'Optix specializes in vibrant food photography that highlights texture and taste, ideal for restaurants and food branding.', '2024-10-31T02:51:25.707815', 6, 'https://backend-s3-images.s3.amazonaws.com/studios/Optix/profile-image', 20);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Reflex', 'info@reflexstudio.com', '+1(323)555-0255', 'Reflex offers expert landscape and fashion photography, creating stunning visuals that captivate audiences worldwide.', '2024-10-31T02:51:25.707815', 11, 'https://backend-s3-images.s3.amazonaws.com/studios/Reflex/profile-image', 21);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Salford', 'info@salfordcorporate.com', '+1(310)555-0266', 'Salford provides top-quality corporate photography, helping businesses portray professionalism and brand identity.', '2024-10-31T02:51:25.707815', 15, 'https://backend-s3-images.s3.amazonaws.com/studios/Salford/profile-image', 22);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Shotter', 'bookings@shotter.com', '+1(305)555-0277', 'Shotter specializes in portrait and graduation photography, capturing life’s milestones with elegance and precision.', '2024-10-31T02:51:25.707815', 4, 'https://backend-s3-images.s3.amazonaws.com/studios/Shotter/profile-image', 23);
+INSERT INTO studio (studio_name, email, phone, description, signup, years_of_experience, profile_image, location_id) VALUES ('Visu', 'info@visutravel.com', '+1(212)555-0288', 'Visu specializes in travel photography, capturing breathtaking scenes from around the world to inspire wanderlust.', '2024-10-31T02:51:25.707815', 13, 'https://backend-s3-images.s3.amazonaws.com/studios/Visu/profile-image', 24);
 
 -- 4. Insert data into the Photographer table
-INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Alice', 'Smith', 1);
-INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Bob', 'Johnson', 1);
-INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Charlie', 'Brown', 2);
-INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('David', 'Williams', 3);
-INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Eva', 'Jones', 3);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Maria', 'Ortiz', 1);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('John', 'Keller', 1);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Sarah', 'Donovan', 1);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Clara', 'Evans', 2);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Leo', 'Thompson', 2);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Grace', 'Miller', 3);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Tom', 'Parker', 3);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Alice', 'Woods', 3);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Emily', 'Clark', 4);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Ryan', 'Hall', 5);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Nathan', 'Brooks', 5);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Jack', 'Scott', 6);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Olivia', 'Baker', 7);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Sophia', 'Green', 7);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Daniel', 'Roberts', 8);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Mia', 'Harris', 8);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Ella', 'Adams', 9);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('James', 'Mitchell', 9);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Benjamin', 'Fisher', 10);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Victoria', 'Wright', 10);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Lucas', 'James', 11);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Isabella', 'Bennett', 11);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Emily', 'Johnson', 12);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Chris', 'Smith', 12);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Olivia', 'Martinez', 12);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Sophia', 'Lee', 13);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Liam', 'Taylor', 13);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Mia', 'Clark', 13);
+-- Charm Light
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Ava', 'Wilson', 14);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Noah', 'Miller', 14);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Lucas', 'Davis', 14);
 
--- 5. Insert data into the Portfolio Photo table
-INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://fake-s3-bucket.s3.amazonaws.com/wedding1.jpg', 1);
-INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://fake-s3-bucket.s3.amazonaws.com/product1.jpg', 2);
-INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://fake-s3-bucket.s3.amazonaws.com/portrait1.jpg', 3);
+-- Clix
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Ella', 'Garcia', 15);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Jack', 'Martinez', 15);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Zoe', 'Hernandez', 15);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Mason', 'Lopez', 15);
 
--- 6. Insert data into the StudioSpecialty table
-INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (1, 1);
-INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (2, 2);
-INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (3, 3);
-INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (1, 4);
-INSERT INTO studio_specialty (studio_id, specialty_id) VALUES (3, 4);
+-- ColorShot
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Benjamin', 'Rodriguez', 16);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Amelia', 'Gonzalez', 16);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Maya', 'Perez', 16);
+
+-- Essence
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Isabella', 'Smith', 17);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Ethan', 'Johnson', 17);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Charlotte', 'Williams', 17);
+
+-- Frameo
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('James', 'Brown', 18);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Mila', 'Jones', 18);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Jackson', 'Lee', 18);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Lily', 'Walker', 18);
+
+-- Lumina
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Lucas', 'King', 19);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Emma', 'Scott', 19);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Sebastian', 'Young', 19);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Aiden', 'Green', 19);
+
+-- Optix
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Sophia', 'Adams', 20);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('David', 'Nelson', 20);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Grace', 'Carter', 20);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Matthew', 'Perez', 20);
+
+-- Reflex
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Charlotte', 'Phillips', 21);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Wyatt', 'Evans', 21);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Liam', 'Tucker', 21);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Olivia', 'Baker', 21);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Mason', 'Harris', 21);
+
+-- Salford
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Samuel', 'Gray', 22);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Chloe', 'Thompson', 22);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('John', 'Roberts', 22);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Emily', 'Morris', 22);
+
+-- Shotter
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Oliver', 'Bennett', 23);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Amelia', 'Mitchell', 23);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Aiden', 'Jackson', 23);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Ella', 'Lee', 23);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Henry', 'Clark', 23);
+
+-- Visu
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Maya', 'Allen', 24);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Nathan', 'Martinez', 24);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Sophie', 'Hughes', 24);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Jack', 'Young', 24);
+INSERT INTO photographer (first_name, last_name, studio_id) VALUES ('Megan', 'Wright', 24);
+
+
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Adora/photography-1', 1);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Adora/photography-2', 1);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Adora/photography-3', 1);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Adora/photography-4', 1);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Adora/photography-5', 1);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Borcelle/photography-1', 2);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Borcelle/photography-2', 2);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Borcelle/photography-3', 2);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Borcelle/photography-4', 2);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Borcelle/photography-5', 2);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Eyelens/photography-1', 3);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Eyelens/photography-2', 3);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Eyelens/photography-3', 3);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Eyelens/photography-4', 3);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Eyelens/photography-5', 3);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Fauget/photography-1', 4);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Fauget/photography-2', 4);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Fauget/photography-3', 4);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Fauget/photography-4', 4);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Fauget/photography-5', 4);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Focus Photography/photography-1', 5);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Focus Photography/photography-2', 5);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Focus Photography/photography-3', 5);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Focus Photography/photography-4', 5);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Focus Photography/photography-5', 5);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/HanOver/photography-1', 6);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/HanOver/photography-2', 6);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/HanOver/photography-3', 6);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/HanOver/photography-4', 6);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/HanOver/photography-5', 6);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lavana/photography-1', 7);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lavana/photography-2', 7);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lavana/photography-3', 7);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lavana/photography-4', 7);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lavana/photography-5', 7);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Matt Zhang/photography-1', 8);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Matt Zhang/photography-2', 8);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Matt Zhang/photography-3', 8);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Matt Zhang/photography-4', 8);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Matt Zhang/photography-5', 8);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Moon Studio/photography-1', 9);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Moon Studio/photography-2', 9);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Moon Studio/photography-3', 9);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Moon Studio/photography-4', 9);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Moon Studio/photography-5', 9);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Noah/photography-1', 10);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Noah/photography-2', 10);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Noah/photography-3', 10);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Noah/photography-4', 10);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Noah/photography-5', 10);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Rimberio/photography-1', 11);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Rimberio/photography-2', 11);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Rimberio/photography-3', 11);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Rimberio/photography-4', 11);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Rimberio/photography-5', 11);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/SnapTails/photography-1', 12);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/SnapTails/photography-2', 12);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/SnapTails/photography-3', 12);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/SnapTails/photography-4', 12);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/SnapTails/photography-5', 12);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Elysium/photography-1', 13);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Elysium/photography-2', 13);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Elysium/photography-3', 13);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Elysium/photography-4', 13);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Elysium/photography-5', 13);
+-- Charm Light
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/CharmLight/photography-1', 14);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/CharmLight/photography-2', 14);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/CharmLight/photography-3', 14);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/CharmLight/photography-4', 14);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/CharmLight/photography-5', 14);
+
+-- Clix
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Clix/photography-1', 15);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Clix/photography-2', 15);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Clix/photography-3', 15);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Clix/photography-4', 15);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Clix/photography-5', 15);
+
+-- ColorShot
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/ColorShot/photography-1', 16);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/ColorShot/photography-2', 16);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/ColorShot/photography-3', 16);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/ColorShot/photography-4', 16);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/ColorShot/photography-5', 16);
+
+-- Essence
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Essence/photography-1', 17);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Essence/photography-2', 17);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Essence/photography-3', 17);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Essence/photography-4', 17);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Essence/photography-5', 17);
+
+-- Frameo
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Frameo/photography-1', 18);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Frameo/photography-2', 18);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Frameo/photography-3', 18);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Frameo/photography-4', 18);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Frameo/photography-5', 18);
+
+-- Lumina
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lumina/photography-1', 19);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lumina/photography-2', 19);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lumina/photography-3', 19);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lumina/photography-4', 19);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Lumina/photography-5', 19);
+
+-- Optix
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Optix/photography-1', 20);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Optix/photography-2', 20);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Optix/photography-3', 20);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Optix/photography-4', 20);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Optix/photography-5', 20);
+
+-- Reflex
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Reflex/photography-1', 21);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Reflex/photography-2', 21);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Reflex/photography-3', 21);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Reflex/photography-4', 21);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Reflex/photography-5', 21);
+
+-- Salford
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Salford/photography-1', 22);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Salford/photography-2', 22);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Salford/photography-3', 22);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Salford/photography-4', 22);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Salford/photography-5', 22);
+
+-- Shotter
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Shotter/photography-1', 23);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Shotter/photography-2', 23);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Shotter/photography-3', 23);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Shotter/photography-4', 23);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Shotter/photography-5', 23);
+
+-- Visu
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Visu/photography-1', 24);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Visu/photography-2', 24);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Visu/photography-3', 24);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Visu/photography-4', 24);
+INSERT INTO portfolio_photo (image, studio_id) VALUES ('https://backend-s3-images.s3.amazonaws.com/studios/Visu/photography-5', 24);
+
+
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (1, 1);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (2, 1);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (6, 2);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (4, 3);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (3, 3);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (8, 4);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (9, 5);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (12, 5);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (11, 6);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (7, 7);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (1, 7);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (2, 8);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (13, 8);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (5, 9);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (3, 10);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (3, 11);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (10, 12);
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (13, 13);
+
+-- Charm Light (Pet y Portrait)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (10, 14);  -- Pet Photography
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (2, 14);   -- Portrait Photography
+
+-- Clix (Real Estate)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (8, 15);   -- Real Estate Photography
+
+-- ColorShot (Product y Sports)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (3, 16);   -- Product Photography
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (11, 16);  -- Sports Photography
+
+-- Essence (Portrait)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (2, 17);   -- Portrait Photography
+
+-- Frameo (Artistic)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (13, 18);  -- Artistic Photography
+
+-- Lumina (Fashion)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (6, 19);   -- Fashion Photography
+
+-- Optix (Food)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (7, 20);   -- Food Photography
+
+-- Reflex (Landscape y Fashion)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (9, 21);   -- Landscape Photography
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (6, 21);   -- Fashion Photography
+
+-- Salford (Corporate)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (4, 22);   -- Corporate Photography
+
+-- Shotter (Portrait y Graduation)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (2, 23);   -- Portrait Photography
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (5, 23);   -- Graduation Photography
+
+-- Visu (Travel)
+INSERT INTO studio_specialty (specialty_id, studio_id) VALUES (12, 24);  -- Travel Photography
+
+
+---- FEATURES
+
+-- Adora - Wedding & Portrait Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (1, 1);  -- High-Resolution Photos
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (2, 1);  -- Digital Album
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (4, 1);  -- Makeup
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (6, 1);  -- Daytime Availability
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (13, 1); -- Props or Accessories
+
+
+-- Borcelle - Fashion Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (5, 2);  -- Stylist
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (6, 2);  -- Daytime Availability
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (7, 2);  -- Nighttime Availability
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (13, 2); -- Props or Accessories
+
+-- Eyelens - Corporate & Product Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (3, 3);  -- Photo Printing
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 3);  -- Editing
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (12, 3); -- Variety of Backgrounds
+
+-- Fauget - Real Estate Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (6, 4);  -- Daytime Availability
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (7, 4);  -- Nighttime Availability
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (12, 4); -- Variety of Backgrounds
+
+-- Focus Photography - Travel & Landscape Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (12, 5); -- Variety of Backgrounds
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 5); -- Natural Lighting
+
+-- HanOver - Sports Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (13, 6); -- Props or Accessories
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 6); -- Natural Lighting
+
+-- Lavana - Wedding & Food Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (1, 7);  -- High-Resolution Photos
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (2, 7);  -- Digital Album
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (8, 7);  -- Video
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 7); -- Natural Lighting
+
+-- Matt Zhang - Artistic & Portrait Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (5, 8);  -- Stylist
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 8);  -- Editing
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (13, 8); -- Props or Accessories
+
+-- Moon Studio - Graduation Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (1, 9);  -- High-Resolution Photos
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (2, 9);  -- Digital Album
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (4, 9);  -- Makeup
+
+-- Noah - Product Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (3, 10); -- Photo Printing
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 10); -- Editing
+
+-- Rimberio - Product Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (3, 11); -- Photo Printing
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 11); -- Editing
+
+-- SnapTails - Pet Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (4, 12); -- Makeup
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (13, 12); -- Props or Accessories
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 12); -- Natural Lighting
+
+-- Elysium - Artistic Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 13); -- Editing
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 13); -- Natural Lighting
+
+-- Charm Light - Pet & Portrait Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (4, 14); -- Makeup
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (13, 14); -- Props or Accessories
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 14); -- Natural Lighting
+
+-- Clix - Real Estate Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (6, 15); -- Daytime Availability
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (7, 15); -- Nighttime Availability
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (12, 15); -- Variety of Backgrounds
+
+-- ColorShot - Sports & Product Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (12, 16); -- Variety of Backgrounds
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 16);  -- Editing
+
+-- Essence - Portrait Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (4, 17); -- Makeup
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 17); -- Editing
+
+-- Frameo - Artistic Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 18); -- Editing
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 18); -- Natural Lighting
+
+-- Lumina - Fashion Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (5, 19); -- Stylist
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (6, 19); -- Daytime Availability
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (7, 19); -- Nighttime Availability
+
+-- Optix - Food Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 20); -- Natural Lighting
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 20);  -- Editing
+
+-- Reflex - Landscape & Fashion Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (12, 21); -- Variety of Backgrounds
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 21);  -- Editing
+
+-- Salford - Corporate Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (3, 22);  -- Photo Printing
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (9, 22);  -- Editing
+
+-- Shotter - Portrait & Graduation Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (1, 23);  -- High-Resolution Photos
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (2, 23);  -- Digital Album
+
+-- Visu - Travel Photography
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (12, 24); -- Variety of Backgrounds
+INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 24); -- Natural Lighting
