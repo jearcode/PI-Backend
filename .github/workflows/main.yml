@@ -57,4 +57,4 @@ jobs:
       run: npm install -g apidog-cli
 
     - name: Running Test Scenario
-      run: apidog run https://api.apidog.com/api/v1/projects/718868/api-test/ci-config/362725/detail?token=xXiWclOh1ZXPGILBooWc66 -r html,cli
+      run: apidog run https://api.apidog.com/api/v1/projects/718868/api-test/ci-config/362729/detail?token=xuM_1gqYeKc5iJwBmsJq7f -r html,cli
