@@ -1,8 +1,6 @@
 package com.luxevision.backend.dto.auth;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
@@ -21,11 +19,13 @@ public class UserAuthUpdateRequest {
     @NotNull(message = "The field 'email' has not been defined")
     @NotBlank(message = "The field 'email' must contain a valid value")
     @NotEmpty(message = "The field 'email' must not be empty")
+    @Email(message = "Please provide a valid email address.")
     private String email;
 
     @NotNull(message = "The field 'password' has not been defined")
     @NotBlank(message = "The field 'password' must contain a valid value")
     @NotEmpty(message = "The field 'password' must not be empty")
+    @Size(min = 8, message = "Password must be at least 8 characters long.")
     private String password;
 
 

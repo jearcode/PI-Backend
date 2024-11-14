@@ -42,10 +42,10 @@ public class UserController {
     private JwtService jwtService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody SaveUser saveUser) {
+    public ResponseEntity<?> registerUser(@RequestBody @Valid SaveUser saveUser) throws UserEmailAlreadyRegisteredException {
 
         if (userService.isEmailTaken(saveUser.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already registered.");
+            throw new UserEmailAlreadyRegisteredException();
         }
 
         if (!saveUser.getPassword().equals(saveUser.getRepeatedPassword())) {
