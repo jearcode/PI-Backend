@@ -36,6 +36,17 @@ public class InitialDataLoader {
                 adminUser.setSignupDate(LocalDateTime.now());
                 userRepository.save(adminUser);
 
+                String passUserSinCifrar = "user";
+                String passConCifrado = passwordEncoder.encode(passUserSinCifrar);
+                User userUser = new User();
+                userUser.setFirstName("user");
+                userUser.setLastName("user");
+                userUser.setPassword(passConCifrado);
+                userUser.setEmail("user@user.com");
+                userUser.setRole(Role.ROLE_CUSTOMER);
+                userUser.setSignupDate(LocalDateTime.now());
+                userRepository.save(userUser);
+
 
                 System.out.println("Usuarios de prueba creados con roles asignados.");
             }
