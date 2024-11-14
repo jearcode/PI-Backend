@@ -3,7 +3,7 @@ name: Automated API Tests
 on:  
   pull_request:
     branches:
-      - QA
+      - main
 
 jobs:
   build:
