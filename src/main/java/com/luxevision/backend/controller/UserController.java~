@@ -5,7 +5,6 @@ import com.luxevision.backend.dto.auth.*;
 import com.luxevision.backend.exception.InvalidPasswordException;
 import com.luxevision.backend.exception.NoChangesMadeException;
 import com.luxevision.backend.exception.UserEmailAlreadyRegisteredException;
-import com.luxevision.backend.service.TokenService;
 import com.luxevision.backend.service.auth.JwtService;
 import com.luxevision.backend.dto.ApiError;
 import com.luxevision.backend.dto.RegisteredUser;
