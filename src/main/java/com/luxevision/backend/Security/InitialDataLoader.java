@@ -25,7 +25,7 @@ public class InitialDataLoader {
         return args -> {
             if (!userRepository.existsByEmail("admin@admin.com")) {
 
-                String passSinCifrar = "admin";
+                String passSinCifrar = "adminadmin";
                 String passCifrado = passwordEncoder.encode(passSinCifrar);
                 User adminUser = new User();
                 adminUser.setFirstName("admin");
@@ -35,6 +35,17 @@ public class InitialDataLoader {
                 adminUser.setRole(Role.ROLE_ADMINISTRATOR);
                 adminUser.setSignupDate(LocalDateTime.now());
                 userRepository.save(adminUser);
+
+                String passUserSinCifrar = "useruser";
+                String passConCifrado = passwordEncoder.encode(passUserSinCifrar);
+                User userUser = new User();
+                userUser.setFirstName("user");
+                userUser.setLastName("user");
+                userUser.setPassword(passConCifrado);
+                userUser.setEmail("user@user.com");
+                userUser.setRole(Role.ROLE_CUSTOMER);
+                userUser.setSignupDate(LocalDateTime.now());
+                userRepository.save(userUser);
 
 
                 System.out.println("Usuarios de prueba creados con roles asignados.");
