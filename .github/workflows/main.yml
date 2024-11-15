@@ -67,3 +67,4 @@ jobs:
 
     - name: Running Test Scenario for features
       run: apidog run --access-token ${{ secrets.APIDOG_ACCESS_TOKEN }} -t 818127 -e 2456287 -n 10 -r html,cli
+
