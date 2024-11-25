@@ -102,7 +102,42 @@ CREATE TABLE IF NOT EXISTS Users (
     CONSTRAINT pk_user PRIMARY KEY (Id),
     CONSTRAINT fk_user_role FOREIGN KEY (user_role_Id) REFERENCES User_Roles(Id)
 );
-     
+
+CREATE TABLE IF NOT EXISTS User_Favorites (
+	Id			INT AUTO_INCREMENT,
+    user_Id		INT	NOT NULL,
+    studio_Id	INT	NOT NULL,
+    
+    CONSTRAINT pk_user_favorite PRIMARY KEY (Id),
+    CONSTRAINT fk_user_favorite_user FOREIGN KEY (user_Id) REFERENCES Users(Id),
+    CONSTRAINT fk_user_favorite_studio FOREIGN KEY (studio_Id) REFERENCES Studios(Id)
+);
+
+CREATE TABLE IF NOT EXISTS User_Ratings (
+	Id				INT 			AUTO_INCREMENT,
+    score			INT 			NOT NULL,
+    review 			VARCHAR(255) 	NULL,
+    review_date 	DATETIME 		NOT NULL,
+    user_Id			INT				NOT NULL,
+    studio_Id		INT				NOT NULL,
+    
+    CONSTRAINT pk_user_rating PRIMARY KEY (Id),
+    CONSTRAINT fk_user_rating_user FOREIGN KEY (user_Id) REFERENCES Users(Id),
+    CONSTRAINT fk_user_rating_studio FOREIGN KEY (studio_Id) REFERENCES Studios(Id)
+);
+
+CREATE TABLE IF NOT EXISTS Bookings (
+	Id 				INT 		AUTO_INCREMENT,
+    schedule_from 	DATETIME 	NOT NULL,
+    schedule_to		DATETIME 	NOT NULL,
+    complete		BIT 		NULL,
+    studio_Id		INT			NOT NULL,
+    user_Id			INT			NOT NULL,
+    
+    CONSTRAINT pk_booking PRIMARY KEY (Id),
+    CONSTRAINT fk_booking_studio FOREIGN KEY (studio_Id) REFERENCES Studios(Id),
+    CONSTRAINT fk_booking_user FOREIGN KEY (user_Id) REFERENCES Users(Id)
+);
      
      
      
