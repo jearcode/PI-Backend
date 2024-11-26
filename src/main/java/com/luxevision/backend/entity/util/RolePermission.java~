@@ -1,7 +1,5 @@
 package com.luxevision.backend.entity.util;
 
-import org.springframework.http.HttpMethod;
-
 public enum RolePermission {
 
     READ_ALL_STUDIOS,
@@ -32,6 +30,5 @@ public enum RolePermission {
     DELETE_ONE_USER,
     ASSIGN_ROLE_ADMINISTRATOR,
     REVOKE_ROLE_ADMINISTRATOR,
-    READ_FAVORITES,
 
 }

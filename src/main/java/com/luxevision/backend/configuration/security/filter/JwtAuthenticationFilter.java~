@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        String token = resolveToken(request);
+        String token = resolveToken(request); // Extraer el token del header
 
         try {
             if (token != null && jwtService.validateToken(token)) {
@@ -42,11 +42,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     return;
                 }
 
-                String email = jwtService.extractEmail(token);
+                String email = jwtService.extractEmail(token); // Extraer el email del token
                 UserDetails userDetails = userService.loadUserByEmail(email);
 
                 if (userDetails != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
+                    // Crear autenticación y asignarla al contexto
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(
                                     userDetails,
@@ -57,7 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception ex) {
-
+            // Manejo de errores en la validación
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed: " + ex.getMessage());
             return;
         }
@@ -65,7 +65,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-
+    /**
+     * Extraer el token del encabezado de la solicitud.
+     */
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {

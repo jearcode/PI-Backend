@@ -40,7 +40,7 @@ public class User implements UserDetails {
     private LocalDateTime signupDate = LocalDateTime.now();
 
     @ElementCollection
-    private List<Long> favStudios = new ArrayList<>();
+    private List<Long> favStudios = new ArrayList<>(); // IDs of favorite studios
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

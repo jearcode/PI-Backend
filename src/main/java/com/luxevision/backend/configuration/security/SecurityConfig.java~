@@ -71,7 +71,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.PUT, "/users/{id}/promote").hasAuthority(RolePermission.ASSIGN_ROLE_ADMINISTRATOR.name());
                     auth.requestMatchers(HttpMethod.PUT, "/users/{id}/demote").hasAuthority(RolePermission.REVOKE_ROLE_ADMINISTRATOR.name());
 
-                    auth.requestMatchers(HttpMethod.GET, "/users/favorites").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/users/favorites").hasAuthority(RolePermission.READ_FAVORITES.name());
 
 
                     auth.anyRequest().authenticated();
