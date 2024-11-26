@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"portfolioPhotos", "studioSpecialties", "photographers", "studioFeatures"})
+@EqualsAndHashCode(exclude = {"portfolioPhotos", "studioSpecialties", "photographers", "studioFeatures", "location"})
 public class Studio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +29,9 @@ public class Studio {
     @Column(nullable = false)
     private LocalDateTime signup;
 
+    @Column(name = "last_update")
+    private LocalDateTime lastUpdate;
+
     @Column(name = "years_of_experience", nullable = false)
     private Integer yearsOfExperience;
 
@@ -39,7 +42,7 @@ public class Studio {
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
-    @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)
     private List<Photographer> photographers;
 
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL)

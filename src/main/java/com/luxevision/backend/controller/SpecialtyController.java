@@ -28,7 +28,7 @@ public class SpecialtyController {
                                                     @RequestPart MultipartFile image) throws IOException {
 
         try{
-            String imageURL = s3Service.uploadImage(image, specialty.getSpecialtyName());
+            String imageURL = s3Service.uploadSpecialtyImage(image, specialty.getSpecialtyName());
             specialty.setImage(imageURL);
             specialtyService.saveSpecialty(specialty);
             return ResponseEntity.status(HttpStatus.CREATED).body(specialty);
@@ -57,7 +57,7 @@ public class SpecialtyController {
             return ResponseEntity.notFound().build();
         }
 
-        String imageURL = s3Service.uploadImage(image, specialty.getSpecialtyName());
+        String imageURL = s3Service.uploadSpecialtyImage(image, specialty.getSpecialtyName());
         specialty.setImage(imageURL);
         return ResponseEntity.ok(specialtyService.updateSpecialty(specialty));
     }
