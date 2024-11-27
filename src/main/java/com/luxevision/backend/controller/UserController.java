@@ -230,18 +230,17 @@ public class UserController {
 
     @GetMapping("/favorites")
     public ResponseEntity<FavoriteResponse> getFavorites() {
-        Long currentUserId = userService.getCurrentUserId(); //
-        List<Long> favoriteStudios = userService.getFavorites(currentUserId);
+        User user = userService.findLoggedInUser();
 
         FavoriteResponse response = new FavoriteResponse();
-        response.setStudios(favoriteStudios);
+        response.setStudios(user.getFavStudios());
 
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/favorites/{studioId}")
     public ResponseEntity<?> removeFavorite(@PathVariable Long studioId) {
-        userService.removeFavorite(userService.getCurrentUserId(), studioId);
+        userService.removeFavorite(userService.findLoggedInUser().getId(), studioId);
         return ResponseEntity.ok("Studio removed from favorites.");
     }
     }

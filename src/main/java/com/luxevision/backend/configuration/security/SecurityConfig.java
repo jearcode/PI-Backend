@@ -54,6 +54,7 @@ public class SecurityConfig {
 
                     auth.requestMatchers(HttpMethod.GET, "/users/profile").hasAuthority(RolePermission.READ_MY_PROFILE.name());
                     auth.requestMatchers(HttpMethod.PUT, "/users/self").hasAuthority(RolePermission.UPDATE_MY_PROFILE.name());
+                    auth.requestMatchers(HttpMethod.GET, "/users/favorites").hasAuthority(RolePermission.READ_FAVORITES.name());
 
                     auth.requestMatchers(HttpMethod.POST, "/studios").hasAuthority(RolePermission.CREATE_ONE_STUDIO.name());
                     auth.requestMatchers(HttpMethod.PUT, "/studios").hasAuthority(RolePermission.UPDATE_ONE_STUDIO.name());
@@ -71,7 +72,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.PUT, "/users/{id}/promote").hasAuthority(RolePermission.ASSIGN_ROLE_ADMINISTRATOR.name());
                     auth.requestMatchers(HttpMethod.PUT, "/users/{id}/demote").hasAuthority(RolePermission.REVOKE_ROLE_ADMINISTRATOR.name());
 
-                    auth.requestMatchers(HttpMethod.GET, "/users/favorites").permitAll();
+
 
 
                     auth.anyRequest().authenticated();

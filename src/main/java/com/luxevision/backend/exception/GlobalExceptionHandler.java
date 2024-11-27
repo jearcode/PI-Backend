@@ -75,4 +75,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
     }
 
+    @ExceptionHandler(StudioAlreadyInFavoritesException.class)
+    public ResponseEntity<?> handleStudioAlreadyInFavoritesException(StudioAlreadyInFavoritesException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
+    @ExceptionHandler(StudioNotInFavoritesException.class)
+    public ResponseEntity<?> handleStudioNotInFavoritesException(StudioNotInFavoritesException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }
