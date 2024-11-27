@@ -75,6 +75,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
     }
 
+    @ExceptionHandler(MinimumImagesRequirementException.class)
+    public ResponseEntity<?> handlerMinimumImagesRequirementException(MinimumImagesRequirementException e, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setError("Minimum images requirement");
+        apiError.setMessage(e.getMessage());
+        apiError.setMethod(request.getMethod());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(apiError);
+    }
+
     @ExceptionHandler(StudioAlreadyInFavoritesException.class)
     public ResponseEntity<?> handleStudioAlreadyInFavoritesException(StudioAlreadyInFavoritesException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());

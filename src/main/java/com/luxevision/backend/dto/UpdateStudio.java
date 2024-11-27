@@ -27,9 +27,6 @@ public class UpdateStudio {
     @NotBlank(message = "Description cannot be empty or null.")
     private String description;
 
-    @NotNull(message = "Signup date cannot be null.")
-    private LocalDateTime signup;
-
     @Min(value = 0, message = "Years of experience must be at least 0.")
     @NotNull(message = "Years of experience cannot be null.")
     private Integer yearsOfExperience;
@@ -37,12 +34,15 @@ public class UpdateStudio {
     @NotNull(message = "Location cannot be null.")
     private Location location;
 
+    @Size(min = 3, max = 15, message = "The photographers list must contain between 3 and 15 photographers.")
     @NotEmpty(message = "Photographers list cannot be empty or null.")
     private List<Photographer> photographers;
 
+    @Size(min = 1, max = 3, message = "The specialties array must contain between 1 and 3 specialties.")
     @NotEmpty(message = "Specialties array cannot be empty or null.")
     private Integer[] specialties;
 
+    @Size(min = 1, message = "The features array must contain at least 1 feature.")
     @NotEmpty(message = "Features array cannot be empty or null.")
     private Long[] features;
 
