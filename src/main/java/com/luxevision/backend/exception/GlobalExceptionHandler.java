@@ -85,14 +85,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(apiError);
     }
 
-    @ExceptionHandler(MinimumPhotographersRequirementException.class)
-    public ResponseEntity<?> handlerMinimumPhotographersRequirementException(MinimumPhotographersRequirementException e, HttpServletRequest request) {
-        ApiError apiError = new ApiError();
-        apiError.setTimestamp(LocalDateTime.now());
-        apiError.setError("Minimum Photographers Requirement");
-        apiError.setMessage(e.getMessage());
-        apiError.setMethod(request.getMethod());
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(apiError);
+    @ExceptionHandler(StudioAlreadyInFavoritesException.class)
+    public ResponseEntity<?> handleStudioAlreadyInFavoritesException(StudioAlreadyInFavoritesException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
-
+    @ExceptionHandler(StudioNotInFavoritesException.class)
+    public ResponseEntity<?> handleStudioNotInFavoritesException(StudioNotInFavoritesException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 }

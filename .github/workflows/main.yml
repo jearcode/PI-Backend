@@ -56,5 +56,14 @@ jobs:
     - name: Install Apidog CLI
       run: npm install -g apidog-cli
 
-    - name: Running Test Scenario
+    - name: Running Test Studio
       run: apidog run --access-token ${{ secrets.APIDOG_ACCESS_TOKEN }} -t 817686 -e 2456287 -n 10 -r html,cli
+
+    - name: Running Test User
+      run: apidog run --access-token ${{ secrets.APIDOG_ACCESS_TOKEN }} -t 825699 -e 2456287 -n 10 -r html,cli
+
+    - name: Running Test Feature
+      run: apidog run --access-token ${{ secrets.APIDOG_ACCESS_TOKEN }} -t 818127 -e 2456287 -n 10 -r html,cli
+
+    - name: Running Test Specialty
+      run: apidog run --access-token ${{ secrets.APIDOG_ACCESS_TOKEN }} -t 825888 -e 2456287 -n 10 -r html,cli

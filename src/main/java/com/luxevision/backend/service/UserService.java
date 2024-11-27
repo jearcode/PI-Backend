@@ -2,9 +2,7 @@ package com.luxevision.backend.service;
 
 import com.luxevision.backend.entity.User;
 import com.luxevision.backend.entity.util.Role;
-import com.luxevision.backend.exception.NoChangesMadeException;
-import com.luxevision.backend.exception.ObjectNotFoundException;
-import com.luxevision.backend.exception.UserEmailAlreadyRegisteredException;
+import com.luxevision.backend.exception.*;
 import com.luxevision.backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,7 +161,36 @@ public class UserService implements UserDetailsService {
 
         return userRepository.save(userFromAuth);
     }
+    public void addFavorite(Long studioId) {
+        Long userId = findLoggedInUser().getId();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (user.getFavStudios().contains(studioId)) {
+            throw new StudioAlreadyInFavoritesException("Studio is already in favorites");
+        }
 
+        user.getFavStudios().add(studioId);
+        userRepository.save(user);
+    }
 
+    public List<Long> getFavorites(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getFavStudios();
+    }
+
+    public void removeFavorite(Long userId, Long studioId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.getFavStudios().contains(studioId)) {
+            throw new StudioNotInFavoritesException("Studio is not in favorites");
+        }
+
+        user.getFavStudios().remove(studioId);
+        userRepository.save(user);
+    }
 
 }
+
+

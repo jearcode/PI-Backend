@@ -1,4 +1,5 @@
 package com.luxevision.backend.configuration.security.filter;
+
 import com.luxevision.backend.service.TokenService;
 import com.luxevision.backend.service.auth.JwtService;
 import com.luxevision.backend.service.UserService;
@@ -20,33 +21,56 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserService userService;
-    @Autowired
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
-    public JwtAuthenticationFilter(JwtService jwtService, UserService userService) {
+    @Autowired
+    public JwtAuthenticationFilter(JwtService jwtService, UserService userService, TokenService tokenService) {
         this.jwtService = jwtService;
         this.userService = userService;
+        this.tokenService = tokenService;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        String token = request.getHeader("Authorization");
+        String token = resolveToken(request);
 
-        if (token != null && token.startsWith("Bearer ")) {
-            token = token.substring(7);
-            if (jwtService.validateToken(token)) {
+        try {
+            if (token != null && jwtService.validateToken(token)) {
+                if (tokenService.isTokenRevoked(token)) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has been revoked");
+                    return;
+                }
+
                 String email = jwtService.extractEmail(token);
                 UserDetails userDetails = userService.loadUserByEmail(email);
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                if (userDetails != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails,
+                                    null,
+                                    userDetails.getAuthorities()
+                            );
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
-        }
-        if (token != null && tokenService.isTokenRevoked(token)) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token has been revoked");
+        } catch (Exception ex) {
+
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Authentication failed: " + ex.getMessage());
             return;
         }
+
         chain.doFilter(request, response);
+    }
+
+
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 }
