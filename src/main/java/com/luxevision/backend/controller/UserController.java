@@ -1,14 +1,12 @@
 package com.luxevision.backend.controller;
 
-import com.luxevision.backend.dto.SaveUser;
+import com.luxevision.backend.dto.*;
 import com.luxevision.backend.dto.auth.*;
 import com.luxevision.backend.exception.InvalidPasswordException;
 import com.luxevision.backend.exception.NoChangesMadeException;
 import com.luxevision.backend.exception.UserEmailAlreadyRegisteredException;
 import com.luxevision.backend.service.TokenService;
 import com.luxevision.backend.service.auth.JwtService;
-import com.luxevision.backend.dto.ApiError;
-import com.luxevision.backend.dto.RegisteredUser;
 import com.luxevision.backend.entity.User;
 import com.luxevision.backend.entity.util.Role;
 import com.luxevision.backend.service.UserService;
@@ -17,6 +15,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -222,6 +222,27 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No valid token provided.");
             }
         }
+    @PostMapping
+    public ResponseEntity<?> addFavorite(@RequestBody FavoriteRequest request) {
+        userService.addFavorite(request.getStudioId());
+        return ResponseEntity.ok("Studio added to favorites.");
+    }
+
+    @GetMapping("/favorites")
+    public ResponseEntity<FavoriteResponse> getFavorites() {
+        User user = userService.findLoggedInUser();
+
+        FavoriteResponse response = new FavoriteResponse();
+        response.setStudios(user.getFavStudios());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/favorites/{studioId}")
+    public ResponseEntity<?> removeFavorite(@PathVariable Long studioId) {
+        userService.removeFavorite(userService.findLoggedInUser().getId(), studioId);
+        return ResponseEntity.ok("Studio removed from favorites.");
+    }
     }
 
 

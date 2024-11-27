@@ -30,8 +30,7 @@ public enum Role {
             RolePermission.UPDATE_ONE_USER,
             RolePermission.DELETE_ONE_USER,
             RolePermission.ASSIGN_ROLE_ADMINISTRATOR,
-            RolePermission.REVOKE_ROLE_ADMINISTRATOR,
-            RolePermission.READ_FAVORITES
+            RolePermission.REVOKE_ROLE_ADMINISTRATOR
     )),
 
     ROLE_CUSTOMER(Arrays.asList(
@@ -43,8 +42,7 @@ public enum Role {
             RolePermission.READ_ALL_FEATURES,
             RolePermission.READ_ONE_FEATURE,
             RolePermission.READ_MY_PROFILE,
-            RolePermission.UPDATE_MY_PROFILE,
-            RolePermission.READ_FAVORITES
+            RolePermission.UPDATE_MY_PROFILE
     ));
 
     private List<RolePermission> permissions;

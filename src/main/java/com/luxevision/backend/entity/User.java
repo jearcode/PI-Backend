@@ -8,7 +8,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -36,6 +38,9 @@ public class User implements UserDetails {
     private Role role = Role.ROLE_CUSTOMER;
 
     private LocalDateTime signupDate = LocalDateTime.now();
+
+    @ElementCollection
+    private List<Long> favStudios = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
