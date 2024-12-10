@@ -1,7 +1,5 @@
 package com.luxevision.backend.controller;
-import com.luxevision.backend.dto.SaveStudio;
-import com.luxevision.backend.dto.UpdateStudio;
-import com.luxevision.backend.dto.UpdateStudioImages;
+import com.luxevision.backend.dto.*;
 import com.luxevision.backend.entity.*;
 import com.luxevision.backend.exception.*;
 import com.luxevision.backend.repository.StudioRepository;
@@ -14,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +48,7 @@ public class StudioController {
 
     @Autowired
     private FeatureService featureService;
+
     @Autowired
     private StudioRepository studioRepository;
 
@@ -204,5 +205,38 @@ public class StudioController {
            throw new RuntimeException(e);
        }
     }
+
+
+    @GetMapping("/{id}/working-hours")
+    public ResponseEntity<WorkSchedules> findStudioWork(@PathVariable Integer id) {
+
+        return ResponseEntity.ok(studioService.findStudioWorkHours(id));
+
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<Studio>> findAvailableStudios(@RequestParam("specialtyID") Integer specialtyID,
+                                                  @RequestParam("date") LocalDate date,
+                                                  @RequestParam("startTime") LocalTime startTime,
+                                                  @RequestParam("endTime") LocalTime endTime) {
+
+       return ResponseEntity.ok(studioService.findAvailableStudios(specialtyID, date, startTime, endTime));
+
+    }
+
+    @GetMapping("/{id}/prices")
+    public ResponseEntity<List<StudioPriceResponse>> findStudioPriceByStudioID (@PathVariable Integer id) {
+
+        return ResponseEntity.ok(studioService.findStudioPriceByStudioID(id));
+
+    }
+
+    @GetMapping("/{id}/occupied-schedules")
+    public ResponseEntity<List<StudioBookingSchedule>> findAllOccupiedSchedulesByStudioFromCurrentDate (@PathVariable Integer id) {
+
+        return ResponseEntity.ok(studioService.findAllOccupiedSchedulesByStudioIDFromCurrentDate(id));
+
+    }
+
 
 }

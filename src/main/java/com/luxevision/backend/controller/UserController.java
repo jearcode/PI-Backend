@@ -2,9 +2,7 @@ package com.luxevision.backend.controller;
 
 import com.luxevision.backend.dto.*;
 import com.luxevision.backend.dto.auth.*;
-import com.luxevision.backend.exception.InvalidPasswordException;
-import com.luxevision.backend.exception.NoChangesMadeException;
-import com.luxevision.backend.exception.UserEmailAlreadyRegisteredException;
+import com.luxevision.backend.exception.*;
 import com.luxevision.backend.service.TokenService;
 import com.luxevision.backend.service.auth.JwtService;
 import com.luxevision.backend.entity.User;
@@ -15,8 +13,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -243,6 +239,25 @@ public class UserController {
         userService.removeFavorite(userService.findLoggedInUser().getId(), studioId);
         return ResponseEntity.ok("Studio removed from favorites.");
     }
+
+
+    @GetMapping("/reservations")
+    public ResponseEntity<?> findMyReservations () {
+
+        return ResponseEntity.ok(userService.findAllMyBookings());
+
     }
+
+    @PutMapping("/reservations/{id}/cancel")
+    public ResponseEntity<?> cancelReservation (@PathVariable Long id) throws NoChangesMadeException {
+
+        userService.cancelMyBooking(id);
+
+        return ResponseEntity.ok("Booking has been cancelled.");
+
+    }
+
+
+}
 
 

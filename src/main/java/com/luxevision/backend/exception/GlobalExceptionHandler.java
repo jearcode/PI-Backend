@@ -93,4 +93,65 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> handleStudioNotInFavoritesException(StudioNotInFavoritesException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    @ExceptionHandler(StudioSpecialtyNotFoundException.class)
+    public ResponseEntity<?> handleStudioSpecialtyNotFoundException(StudioSpecialtyNotFoundException e, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setError("Studio with unrelated specialty");
+        apiError.setMessage(e.getMessage());
+        apiError.setMethod(request.getMethod());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
+    }
+
+    @ExceptionHandler(InvalidScheduleException.class)
+    public ResponseEntity<?> handleInvalidScheduleException(InvalidScheduleException e, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setError("Invalid schedule");
+        apiError.setMessage(e.getMessage());
+        apiError.setMethod(request.getMethod());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+
+    @ExceptionHandler(StudioHoursViolationException.class)
+    public ResponseEntity<?> handleStudioHoursViolationException(StudioHoursViolationException e, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setError("Studio Hours Conflict");
+        apiError.setMessage(e.getMessage());
+        apiError.setMethod(request.getMethod());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
+    }
+
+    @ExceptionHandler(BookingConflictException.class)
+    public ResponseEntity<?> handleBookingConflictException(BookingConflictException e, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setError("Booking conflict");
+        apiError.setMessage(e.getMessage());
+        apiError.setMethod(request.getMethod());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
+    }
+
+    @ExceptionHandler(InvalidPriceException.class)
+    public ResponseEntity<?> handleInvalidPriceException(InvalidPriceException e, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setError("Invalid price");
+        apiError.setMessage(e.getMessage());
+        apiError.setMethod(request.getMethod());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
+    }
+
+    @ExceptionHandler(InvalidUserException.class)
+    public ResponseEntity<?> handleInvalidUserException(InvalidUserException e, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setTimestamp(LocalDateTime.now());
+        apiError.setError("Invalid user");
+        apiError.setMessage(e.getMessage());
+        apiError.setMethod(request.getMethod());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(apiError);
+    }
+
 }

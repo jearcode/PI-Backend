@@ -14,23 +14,23 @@ INSERT INTO specialty (specialty_name, description, image) VALUES ('Travel Photo
 INSERT INTO specialty (specialty_name, description, image) VALUES ('Artistic Photography', 'Express creativity with unique, experimental artistic images.', 'https://backend-s3-images.s3.amazonaws.com/specialties/Artistic/profile-image');
 
 
-INSERT INTO feature (feature_name, icon) VALUES ('In-Studio Session', '');
-INSERT INTO feature (feature_name, icon) VALUES ('At-Home Session', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Makeup', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Wardrobe', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Stylist', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Daytime Schedule', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Nighttime Schedule', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Themed Sets', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Photo Printing', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Digital Album', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Video', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Editing', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Varied Backgrounds', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Pose Guidance', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Props and Accessories', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Natural Lighting', '');
-INSERT INTO feature (feature_name, icon) VALUES ('Flash Lighting', '');
+INSERT INTO feature (feature_name, icon) VALUES ('In-Studio Session', 'simple-icons:photon');
+INSERT INTO feature (feature_name, icon) VALUES ('At-Home Session', 'ic:baseline-home');
+INSERT INTO feature (feature_name, icon) VALUES ('Makeup', 'icon-park-twotone:makeups');
+INSERT INTO feature (feature_name, icon) VALUES ('Wardrobe', 'mdi:wardrobe');
+INSERT INTO feature (feature_name, icon) VALUES ('Stylist', 'file-icons:styledcomponents');
+INSERT INTO feature (feature_name, icon) VALUES ('Daytime Schedule', 'mingcute:partly-cloud-daytime-fill');
+INSERT INTO feature (feature_name, icon) VALUES ('Nighttime Schedule', 'game-icons:night-sky');
+INSERT INTO feature (feature_name, icon) VALUES ('Themed Sets', 'catppuccin:folder-themes-open');
+INSERT INTO feature (feature_name, icon) VALUES ('Photo Printing', 'tabler:photo-filled');
+INSERT INTO feature (feature_name, icon) VALUES ('Digital Album', 'solar:album-bold');
+INSERT INTO feature (feature_name, icon) VALUES ('Video', 'majesticons:video');
+INSERT INTO feature (feature_name, icon) VALUES ('Editing', 'icon-park-solid:file-editing-one');
+INSERT INTO feature (feature_name, icon) VALUES ('Varied Backgrounds', 'fluent-mdl2:background-color');
+INSERT INTO feature (feature_name, icon) VALUES ('Pose Guidance', 'arcticons:magic-poser');
+INSERT INTO feature (feature_name, icon) VALUES ('Props and Accessories', 'solar:settings-bold');
+INSERT INTO feature (feature_name, icon) VALUES ('Natural Lighting', 'icon-park-twotone:natural-mode');
+INSERT INTO feature (feature_name, icon) VALUES ('Flash Lighting', 'material-symbols:no-flash');
 
 
 
@@ -495,3 +495,258 @@ INSERT INTO studio_feature (feature_id, studio_id) VALUES (2, 23);  -- Digital A
 -- Visu - Travel Photography
 INSERT INTO studio_feature (feature_id, studio_id) VALUES (12, 24); -- Variety of Backgrounds
 INSERT INTO studio_feature (feature_id, studio_id) VALUES (14, 24); -- Natural Lighting
+
+
+
+-- Studio 1
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (1, 1, 1500.0); -- Wedding
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (1, 2, 800.0); -- Portrait
+
+-- Studio 2
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (2, 6, 1800.0); -- Fashion
+
+-- Studio 3
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (3, 4, 1300.0); -- Corporate
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (3, 3, 1100.0); -- Product
+
+-- Studio 4
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (4, 8, 950.0); -- Real Estate
+
+-- Studio 5
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (5, 9, 1300.0); -- LandScape
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (5, 12, 1400.0); -- Travel
+
+-- Studio 6
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (6, 11, 900.0); -- Sports
+
+-- Studio 7
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (7, 7, 750.0); -- Food
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (7, 1, 1000.0); -- Wedding
+
+-- Studio 8
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (8, 2, 800.0); -- Portrait
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (8, 13, 1600.0); -- Artistic
+
+-- Studio 9
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (9, 5, 850.0); -- Graduation
+
+-- Studio 10
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (10, 3, 1100.0); -- Product
+
+-- Studio 11
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (11, 3, 1050.0); -- Product
+
+-- Studio 12
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (12, 10, 1250.0); -- Travel
+
+-- Studio 13
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (13, 13, 1700.0); -- Artistic
+
+-- Studio 14 (Charm Light)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (14, 10, 950.0); -- Pet Photography
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (14, 2, 850.0);  -- Portrait Photography
+
+-- Studio 15 (Clix)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (15, 8, 1000.0); -- Real Estate Photography
+
+-- Studio 16 (ColorShot)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (16, 3, 1150.0); -- Product Photography
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (16, 11, 950.0); -- Sports Photography
+
+-- Studio 17 (Essence)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (17, 2, 900.0);  -- Portrait Photography
+
+-- Studio 18 (Frameo)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (18, 13, 1500.0); -- Artistic Photography
+
+-- Studio 19 (Lumina)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (19, 6, 1100.0);  -- Fashion Photography
+
+-- Studio 20 (Optix)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (20, 7, 800.0);  -- Food Photography
+
+-- Studio 21 (Reflex)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (21, 9, 1350.0); -- Landscape Photography
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (21, 6, 1200.0); -- Fashion Photography
+
+-- Studio 22 (Salford)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (22, 4, 1250.0); -- Corporate Photography
+
+-- Studio 23 (Shotter)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (23, 2, 950.0);  -- Portrait Photography
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (23, 5, 900.0);  -- Graduation Photography
+
+-- Studio 24 (Visu)
+INSERT INTO studio_price (studio_id, specialty_id, price) VALUES (24, 12, 1400.0); -- Travel Photography
+
+
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (1, 0, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (1, 1, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (1, 2, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (1, 3, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (1, 4, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (1, 5, '09:00:00', '13:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (2, 0, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (2, 1, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (2, 2, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (2, 3, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (2, 4, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (2, 5, '08:00:00', '14:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (3, 0, '07:30:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (3, 1, '07:30:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (3, 2, '07:30:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (3, 3, '07:30:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (3, 4, '07:30:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (3, 5, '08:00:00', '13:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (4, 0, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (4, 1, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (4, 2, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (4, 3, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (4, 4, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (4, 5, '09:00:00', '13:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (5, 0, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (5, 1, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (5, 2, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (5, 3, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (5, 4, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (5, 5, '10:00:00', '20:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (6, 0, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (6, 1, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (6, 2, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (6, 3, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (6, 4, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (6, 5, '08:00:00', '18:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (7, 0, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (7, 1, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (7, 2, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (7, 3, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (7, 4, '09:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (7, 5, '07:00:00', '15:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (8, 0, '06:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (8, 1, '06:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (8, 2, '06:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (8, 3, '06:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (8, 4, '06:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (8, 5, '07:00:00', '15:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (9, 0, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (9, 1, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (9, 2, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (9, 3, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (9, 4, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (9, 5, '12:00:00', '23:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (10, 0, '07:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (10, 1, '07:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (10, 2, '07:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (10, 3, '07:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (10, 4, '07:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (10, 5, '07:00:00', '15:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (11, 0, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (11, 1, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (11, 2, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (11, 3, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (11, 4, '08:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (11, 5, '08:00:00', '13:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (12, 0, '07:00:00', '19:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (12, 1, '07:00:00', '19:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (12, 2, '07:00:00', '19:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (12, 3, '07:00:00', '19:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (12, 4, '07:00:00', '19:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (12, 5, '08:00:00', '17:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (13, 0, '08:30:00', '17:30:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (13, 1, '08:30:00', '17:30:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (13, 2, '08:30:00', '17:30:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (13, 3, '08:30:00', '17:30:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (13, 4, '08:30:00', '17:30:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (13, 5, '08:30:00', '16:30:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (14, 0, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (14, 1, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (14, 2, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (14, 3, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (14, 4, '11:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (14, 5, '11:00:00', '21:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (15, 0, '10:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (15, 1, '10:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (15, 2, '10:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (15, 3, '10:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (15, 4, '10:00:00', '22:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (15, 5, '10:00:00', '21:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (16, 0, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (16, 1, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (16, 2, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (16, 3, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (16, 4, '08:00:00', '18:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (16, 5, '08:00:00', '17:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (17, 0, '09:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (17, 1, '09:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (17, 2, '09:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (17, 3, '09:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (17, 4, '09:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (17, 5, '09:00:00', '16:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (18, 0, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (18, 1, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (18, 2, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (18, 3, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (18, 4, '10:00:00', '20:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (18, 5, '10:00:00', '19:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (19, 0, '05:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (19, 1, '05:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (19, 2, '05:00:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (19, 3, '05:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (19, 4, '05:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (19, 5, '05:00:00', '15:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (20, 0, '07:00:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (20, 1, '07:00:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (20, 2, '07:00:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (20, 3, '07:00:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (20, 4, '07:00:00', '15:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (20, 5, '07:00:00', '15:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (21, 0, '06:00:00', '14:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (21, 1, '06:00:00', '14:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (21, 2, '06:00:00', '14:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (21, 3, '06:00:00', '14:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (21, 4, '06:00:00', '14:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (21, 5, '06:00:00', '13:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (22, 0, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (22, 1, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (22, 2, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (22, 3, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (22, 4, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (22, 5, '07:00:00', '15:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (23, 0, '11:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (23, 1, '11:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (23, 2, '11:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (23, 3, '11:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (23, 4, '11:00:00', '17:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (23, 5, '11:00:00', '17:00:00');
+
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (24, 0, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (24, 1, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (24, 2, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (24, 3, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (24, 4, '07:00:00', '16:00:00');
+INSERT INTO studio_working_hours (studio_id, day_of_week, opening_time, closing_time) VALUES (24, 5, '07:00:00', '16:00:00');
+
+
