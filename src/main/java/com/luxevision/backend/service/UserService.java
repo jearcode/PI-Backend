@@ -1,8 +1,12 @@
 package com.luxevision.backend.service;
 
+import com.luxevision.backend.dto.BookingResponse;
+import com.luxevision.backend.entity.Booking;
 import com.luxevision.backend.entity.User;
 import com.luxevision.backend.entity.util.Role;
+import com.luxevision.backend.entity.util.Status;
 import com.luxevision.backend.exception.*;
+import com.luxevision.backend.repository.BookingRepository;
 import com.luxevision.backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -26,6 +31,9 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -189,6 +197,51 @@ public class UserService implements UserDetailsService {
 
         user.getFavStudios().remove(studioId);
         userRepository.save(user);
+    }
+
+    public List<BookingResponse> findAllMyBookings () {
+
+        User user = findLoggedInUser();
+
+        List<Booking> bookings = bookingRepository.findAllByUserId(user.getId());
+
+        List<BookingResponse> bookingResponses = bookings.stream()
+                .map((booking) -> BookingResponse.builder()
+                        .id(booking.getId())
+                        .date(booking.getDate())
+                        .startTime(booking.getStartTime())
+                        .endTime(booking.getEndTime())
+                        .totalPrice(booking.getTotalPrice())
+                        .status(booking.getStatus())
+                        .studioID(booking.getStudio().getId())
+                        .specialtyID(booking.getSpecialty().getId())
+                        .user(booking.getUser().getFirstName() + " " + booking.getUser().getLastName())
+                        .build()).collect(Collectors.toUnmodifiableList());
+
+        return bookingResponses;
+
+    }
+
+    public void cancelMyBooking (Long id) throws NoChangesMadeException {
+
+        User user = findLoggedInUser();
+
+        Booking bookingFromDB = bookingRepository.findById(id).orElseThrow(
+                () -> new ObjectNotFoundException("Booking with id " + id + " not found.")
+        );
+
+        if (!bookingFromDB.getUser().getId().equals(user.getId())) {
+            throw new InvalidUserException("The user is not authorized to access or modify this booking.");
+        }
+
+        if (bookingFromDB.getStatus().equals(Status.CANCELLED)) {
+            throw new NoChangesMadeException();
+        }
+
+        bookingFromDB.setStatus(Status.CANCELLED);
+
+        bookingRepository.save(bookingFromDB);
+
     }
 
 }

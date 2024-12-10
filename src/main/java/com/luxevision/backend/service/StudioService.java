@@ -1,29 +1,27 @@
 package com.luxevision.backend.service;
-import com.luxevision.backend.dto.UpdateStudio;
-import com.luxevision.backend.dto.UpdateStudioImages;
+import com.luxevision.backend.dto.*;
 import com.luxevision.backend.entity.*;
+import com.luxevision.backend.exception.InvalidScheduleException;
 import com.luxevision.backend.exception.MinimumImagesRequirementException;
 import com.luxevision.backend.exception.ObjectNotFoundException;
 import com.luxevision.backend.exception.StudioNameAlreadyRegisteredException;
-import com.luxevision.backend.repository.PhotographerRepository;
-import com.luxevision.backend.repository.StudioRepository;
+import com.luxevision.backend.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudioService {
@@ -57,6 +55,15 @@ public class StudioService {
 
     @Autowired
     private FeatureService featureService;
+
+    @Autowired
+    private StudioWorkingHoursRepository studioWorkingHoursRepository;
+
+    @Autowired
+    private StudioPriceRepository studioPriceRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     public List<Studio> getRandomStudios() {
         return studioRepository.findRandomStudios(PageRequest.of(0, 12));
@@ -441,4 +448,106 @@ public class StudioService {
     public Boolean existsStudioByStudioName (String studioName) {
         return studioRepository.existsStudioByStudioName(studioName);
     }
+
+    private String getScheduleForDay(List<StudioWorkingHours> studioWorkingHours, DayOfWeek dayOfWeek) {
+        return studioWorkingHours.stream()
+                .filter(hour -> hour.getDayOfWeek().equals(dayOfWeek))
+                .map(hour -> formatSchedule(hour.getOpeningTime(), hour.getClosingTime()))
+                .findFirst()
+                .orElse("Closed");
+    }
+
+    private String formatSchedule(LocalTime openingTime, LocalTime closingTime) {
+        return String.format("%s - %s", openingTime, closingTime);
+    }
+
+
+    public WorkSchedules findStudioWorkHours (Integer id) {
+
+        studioRepository.findById(id).orElseThrow(
+                () -> new ObjectNotFoundException("Studio not found")
+        );
+
+        List<StudioWorkingHours> studioWorkingHours = studioWorkingHoursRepository.findAllByStudioId(id);
+
+        WorkSchedules workSchedules = WorkSchedules.builder()
+                .monday(getScheduleForDay(studioWorkingHours, DayOfWeek.MONDAY))
+                .tuesday(getScheduleForDay(studioWorkingHours, DayOfWeek.TUESDAY))
+                .wednesday(getScheduleForDay(studioWorkingHours, DayOfWeek.WEDNESDAY))
+                .thursday(getScheduleForDay(studioWorkingHours, DayOfWeek.THURSDAY))
+                .friday(getScheduleForDay(studioWorkingHours, DayOfWeek.FRIDAY))
+                .saturday(getScheduleForDay(studioWorkingHours, DayOfWeek.SATURDAY))
+                .sunday(getScheduleForDay(studioWorkingHours, DayOfWeek.SUNDAY))
+                .build();
+
+        return workSchedules;
+
+    }
+
+    public List<Studio> findAvailableStudios (Integer specialtyID,
+                                              LocalDate date,
+                                              LocalTime startTime,
+                                              LocalTime endTime) {
+
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+
+        specialtyService.findSpecialtyById(specialtyID)
+                .orElseThrow(() -> new ObjectNotFoundException("Specialty with id " + specialtyID + " not found"));
+
+        if (startTime.isAfter(endTime)) {
+            throw new InvalidScheduleException("The start time cannot be after the end time.");
+        }
+
+        if (date.isBefore(LocalDate.now())) {
+            throw new InvalidScheduleException("The date must be today or a future date; it cannot be a past date.");
+        }
+
+        List<Studio> availableStudios = studioRepository.findAvailableStudios(specialtyID, dayOfWeek, date, startTime, endTime);
+
+
+        return availableStudios;
+
+    }
+
+    public List<StudioPriceResponse> findStudioPriceByStudioID (Integer id) {
+
+        findStudioById(id).orElseThrow(
+                () -> new ObjectNotFoundException("Studio with id " + id + " not found")
+        );
+
+        List<StudioPrice> studioPrices = studioPriceRepository.findByStudioId(id);
+
+        List<StudioPriceResponse> studioPriceResponses = studioPrices.stream()
+                .map( (price) -> StudioPriceResponse.builder()
+                        .id(price.getId())
+                        .studioID(price.getStudio().getId())
+                        .specialtyID(price.getSpecialty().getId())
+                        .price(price.getPrice())
+                        .build()).collect(Collectors.toUnmodifiableList());
+
+        return studioPriceResponses;
+
+    }
+
+    public List<StudioBookingSchedule> findAllOccupiedSchedulesByStudioIDFromCurrentDate (Integer id) {
+
+        findStudioById(id).orElseThrow(
+                () -> new ObjectNotFoundException("Studio with id " + id + " not found")
+        );
+
+        List<Booking> bookings = bookingRepository.findAllByDateIsAfterAndStudioId(LocalDate.now(), id);
+
+        List<StudioBookingSchedule> schedules = bookings.stream()
+                .map(booking -> StudioBookingSchedule.builder()
+                        .date(booking.getDate())
+                        .startTime(booking.getStartTime())
+                        .endTime(booking.getEndTime())
+                        .build()).collect(Collectors.toList());
+
+        return schedules;
+
+    }
+
+
+
 }
