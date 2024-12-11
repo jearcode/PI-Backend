@@ -130,7 +130,8 @@ CREATE TABLE IF NOT EXISTS Bookings (
 	Id 				INT 		AUTO_INCREMENT,
     schedule_from 	DATETIME 	NOT NULL,
     schedule_to		DATETIME 	NOT NULL,
-    complete		BIT 		NULL,
+    status			VARCHAR(25) NULL, /* CONFIRMED, COMPLETED, CANCELLED */
+    /* complete		BIT 		NULL, */
     studio_Id		INT			NOT NULL,
     user_Id			INT			NOT NULL,
     
