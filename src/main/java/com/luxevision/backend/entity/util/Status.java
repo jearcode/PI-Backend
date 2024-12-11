@@ -1,5 +1,5 @@
 package com.luxevision.backend.entity.util;
 
 public enum Status {
-    CONFIRMED, COMPLETE, CANCELLED
+    CONFIRMED, COMPLETED, CANCELLED
 }
