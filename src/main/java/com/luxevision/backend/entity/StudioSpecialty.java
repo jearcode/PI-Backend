@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "studio_specialties")
 public class StudioSpecialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

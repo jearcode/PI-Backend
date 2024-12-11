@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "studio_features")
 public class StudioFeature {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

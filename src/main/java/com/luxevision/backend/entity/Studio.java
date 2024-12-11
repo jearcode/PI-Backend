@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = {"portfolioPhotos", "studioSpecialties", "photographers", "studioFeatures", "location"})
+@Table(name = "studios")
 public class Studio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
