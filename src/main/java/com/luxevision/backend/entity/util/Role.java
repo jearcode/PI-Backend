@@ -31,7 +31,11 @@ public enum Role {
             RolePermission.DELETE_ONE_USER,
             RolePermission.ASSIGN_ROLE_ADMINISTRATOR,
             RolePermission.REVOKE_ROLE_ADMINISTRATOR,
-            RolePermission.READ_FAVORITES
+            RolePermission.READ_FAVORITES,
+            RolePermission.MAKE_BOOKING,
+            RolePermission.VIEW_MY_RESERVATIONS,
+            RolePermission.CANCEL_MY_BOOKING,
+            RolePermission.FULL_ACCESS_BOOKING
     )),
 
     ROLE_CUSTOMER(Arrays.asList(
@@ -44,7 +48,10 @@ public enum Role {
             RolePermission.READ_ONE_FEATURE,
             RolePermission.READ_MY_PROFILE,
             RolePermission.UPDATE_MY_PROFILE,
-            RolePermission.READ_FAVORITES
+            RolePermission.READ_FAVORITES,
+            RolePermission.MAKE_BOOKING,
+            RolePermission.VIEW_MY_RESERVATIONS,
+            RolePermission.CANCEL_MY_BOOKING
     ));
 
     private List<RolePermission> permissions;

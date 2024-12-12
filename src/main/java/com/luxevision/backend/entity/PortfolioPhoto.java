@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(exclude = "studio")
+@Table(name = "portfolio_photos")
 public class PortfolioPhoto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

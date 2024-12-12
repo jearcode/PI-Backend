@@ -46,15 +46,25 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.GET, "/studios").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/studios/random").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/studios/{id}").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/studios/{id}/working-hours").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/studios/available").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/studios/{id}/occupied-schedules").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/studios/{id}/prices").permitAll();
+
+
                     auth.requestMatchers(HttpMethod.GET, "/specialties").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/specialties/{id}").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/features").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/features/{id}").permitAll();
 
+                    auth.requestMatchers(HttpMethod.POST, "/bookings/quote").permitAll();
 
                     auth.requestMatchers(HttpMethod.GET, "/users/profile").hasAuthority(RolePermission.READ_MY_PROFILE.name());
                     auth.requestMatchers(HttpMethod.PUT, "/users/self").hasAuthority(RolePermission.UPDATE_MY_PROFILE.name());
                     auth.requestMatchers(HttpMethod.GET, "/users/favorites").hasAuthority(RolePermission.READ_FAVORITES.name());
+                    auth.requestMatchers(HttpMethod.POST, "/bookings").hasAuthority(RolePermission.MAKE_BOOKING.name());
+                    auth.requestMatchers(HttpMethod.GET, "/users/reservations").hasAuthority(RolePermission.VIEW_MY_RESERVATIONS.name());
+                    auth.requestMatchers(HttpMethod.PUT, "/users/reservations/{id}/cancel").hasAuthority(RolePermission.CANCEL_MY_BOOKING.name());
 
                     auth.requestMatchers(HttpMethod.POST, "/studios").hasAuthority(RolePermission.CREATE_ONE_STUDIO.name());
                     auth.requestMatchers(HttpMethod.PUT, "/studios").hasAuthority(RolePermission.UPDATE_ONE_STUDIO.name());
@@ -71,9 +81,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.DELETE, "/users/{id}").hasAuthority(RolePermission.DELETE_ONE_USER.name());
                     auth.requestMatchers(HttpMethod.PUT, "/users/{id}/promote").hasAuthority(RolePermission.ASSIGN_ROLE_ADMINISTRATOR.name());
                     auth.requestMatchers(HttpMethod.PUT, "/users/{id}/demote").hasAuthority(RolePermission.REVOKE_ROLE_ADMINISTRATOR.name());
-
-
-
+                    auth.requestMatchers(HttpMethod.GET, "/bookings/**").hasAuthority(RolePermission.FULL_ACCESS_BOOKING.name());
 
                     auth.anyRequest().authenticated();
 
@@ -85,7 +93,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:5173");
+        configuration.addAllowedOrigin("https://luxe-vision-frontend.s3-website-us-east-1.amazonaws.com");
         configuration.addAllowedMethod(HttpMethod.GET);
         configuration.addAllowedMethod(HttpMethod.POST);
         configuration.addAllowedMethod(HttpMethod.PUT);
