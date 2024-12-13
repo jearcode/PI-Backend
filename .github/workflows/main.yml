@@ -67,3 +67,6 @@ jobs:
 
     - name: Running Test Specialty
       run: apidog run --access-token ${{ secrets.APIDOG_ACCESS_TOKEN }} -t 825888 -e 2456287 -n 10 -r html,cli
+      
+    - name: Running Test Bookings
+      run: apidog run --access-token ${{ secrets.APIDOG_ACCESS_TOKEN }} -t 871393 -e 2456287 -n 10 -r html,cli
