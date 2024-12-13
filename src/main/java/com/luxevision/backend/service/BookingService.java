@@ -8,6 +8,7 @@ import com.luxevision.backend.repository.BookingRepository;
 import com.luxevision.backend.repository.StudioPriceRepository;
 import com.luxevision.backend.repository.StudioSpecialtyRepository;
 import com.luxevision.backend.repository.StudioWorkingHoursRepository;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +43,8 @@ public class BookingService {
 
     @Autowired
     private SpecialtyService specialtyService;
+    @Autowired
+    private EmailService emailService;
 
     private boolean isMultipleOfThirtyMinutes(LocalTime time) {
         int minutes = time.getMinute();
@@ -151,6 +154,42 @@ public class BookingService {
 
         Booking savedBooking = bookingRepository.save(bookingToSave);
 
+        String htmlContent = String.format(
+                """
+                <html>
+                <body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+                    <div style="background-color: #f4f4f4; padding: 20px;">
+                        <div style="max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div style="text-align: center;">
+                                <img src="cid:logo" alt="LuxeVision Logo" style="width: 150px; margin-bottom: 10px;">
+                            </div>
+                            <h2 style="color: #555;">Booking Confirmation</h2>
+                            <p>Hello %s,</p><p></p>
+                            <p>Your booking at <strong>%s</strong> on <strong>%s</strong> from <strong>%s</strong> to <strong>%s</strong> has been confirmed.</p><p></p>
+                            <p>Total price: <strong>$%.2f</strong></p><p></p>
+                            <p>Thank you for choosing LuxeVision!</p><p></p>
+                            <p style="text-align: center; color: #999; font-size: 0.9rem;">&copy; 2024 LuxeVision. All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+                """,
+                user.getFirstName(),
+                studioFromDB.getStudioName(),
+                date,
+                startTime,
+                endTime,
+                totalPrice
+        );
+
+
+        try {
+            emailService.sendHtmlEmail(user.getEmail(), "Booking Confirmation", htmlContent);
+        } catch (MessagingException e) {
+
+            System.err.println("Fail to send email: " + e.getMessage());
+            e.printStackTrace();
+        }
         return bookingToBookingResponse(savedBooking);
 
     }

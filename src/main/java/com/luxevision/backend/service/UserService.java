@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import jakarta.mail.MessagingException;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,6 +36,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     private BookingRepository bookingRepository;
 
+    @Autowired
+    private EmailService emailService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
@@ -53,6 +56,40 @@ public class UserService implements UserDetailsService {
     }
 
     public User saveUser(User user) {
+        String htmlContent = String.format(
+                """
+                <html>
+                <body style="font-family: Arial, sans-serif; margin: 0; padding: 0;">
+                    <div style="background-color: #f4f4f4; padding: 20px;">
+                        <div style="max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                            <div style="text-align: center;">
+                                <img src="cid:logo" alt="LuxeVision Logo" style="width: 150px; margin-bottom: 10px;">
+                            </div>
+                            <h2 style="color: #555;">Registration Confirmed!</h2>
+                            <p>Hello %s,</p>
+                            <p>You have successfully registered with the Email: <strong>%s</strong></p><p></p>
+                            <p>If you made this registration, no further action is needed. You can log in and start enjoying our services right away.</p><p></p>
+                            <p>If you didn’t create this account or received this email by mistake, please contact us immediately so we can assist you.</strong></p><p></p>
+                            <p>Thank you for choosing LuxeVision!</p><p></p>
+                            <p style="text-align: center; color: #999; font-size: 0.9rem;">&copy; 2024 LuxeVision. All Rights Reserved.</p><p></p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+                """,
+                user.getFirstName(),
+                user.getEmail()
+
+        );
+
+        try {
+            emailService.sendHtmlEmail(user.getEmail(), "Registration Confirmation", htmlContent);
+        } catch (MessagingException e) {
+
+            System.err.println("Fail to send email: " + e.getMessage());
+            e.printStackTrace();
+        }
+
         return userRepository.save(user);
     }
 
